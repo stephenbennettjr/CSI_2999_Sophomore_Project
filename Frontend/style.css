@@ -1,0 +1,44 @@
+h1 {
+  color: aqua;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 100px;
+  align-items: center;
+}
+
+a {
+  font-style: bold;
+  font-size: 100px;
+}
+
+a:link {
+  color: blue;
+  text-decoration: none;
+}
+
+a:visited {
+  color: purple;
+}
+
+a:hover {
+  color: brown;
+  text-decoration: underline;
+}
+
+a:active {
+  background-color: blanchedalmond;
+  color: blue;
+}
+
+body {
+  background-color: white;
+}
+
+p {
+  color: blueviolet;
+}
+
+button {
+  color: green;
+  height: 90px;
+  width: 100px;
+}
