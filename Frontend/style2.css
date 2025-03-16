@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #828282;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    background-color: rgba(24, 24, 24, 1);
+    border-radius: 20px;
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.25);
+    display: flex ;
+    transform-origin: center;
+    position: absolute;
+}
+
+.game-view {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.game-function {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.segment-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.track-element {
+    display: flex;
+    align-items: center;
+    background-color: rgba(40, 40, 40, 1);
+    padding: 0.5rem 1.25rem;
+    border-radius: 23px;
+    cursor: pointer;
+    width: 390px; 
+    height: 51px; 
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
+}
+
+.element-select {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.element-select.active {
+    background-color: #4caf50;
+}
+
+.element-select.inactive {
+    background-color: #f44336;
+}
+
+.element-label {
+    color: white;
+    font-size: 14px; 
+    flex: 1;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1.25rem; 
+    width: 390px; 
+    height: 83px; 
+    margin-top: 1.3rem;
+    background-color: rgba(40, 40, 40, 1);
+    border-radius: 13px; 
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
+    text-: #535353;
+}
+
+.stats-list {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.art-container {
+  width: 351px;
+  height: 300px;
+}
+
+.art-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
+  filter: blur(.3rem);
+}
+
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    height: 83px; 
+    background-color: rgba(40, 40, 40, 1);
+    border-radius: 13px;
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
+}
+
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .play-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .play-pause-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .scrubber-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .time-display {
+    font-size: 0.75rem;
+    color: #b3b3b3;
+    min-width: 40px;
+  }
+  
+  .progress-bar {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #535353;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: #1db954; 
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30%; 
+  }
+  
+  .progress-handle {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 30%; 
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  
+  .progress-bar:hover .progress-handle {
+    display: block;
+  }
+
+  .control-button {
+    background: transparent;
+    border: none;
+    color: #b3b3b3; 
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .guess-container {
+    display: flex;
+    position: relative;
+    gap: 1rem;
+    width: 700px;
+    height: 80px;
+    padding: 1rem;
+    background-color: rgba(24, 24, 24, 0.75);
+    border-radius: 15px;
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.25);
+    top: 280px;
+  }
+
+  .guess-container {
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.guess-input, #guess {
+    background-color: rgba(40, 40, 40, 0.5);
+    color: white;
+    border: 1px solid rgba(100, 100, 100, 0.4);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 19px;
+    box-sizing: border-box;
+    outline: none;
+    height: 48px;
+    width: 420px;
+}
+
+#guess:focus {
+    border-color: rgba(120, 120, 120, 0.6);
+    background-color: rgba(45, 45, 45, 0.7);
+}
+
+#guess-button {
+    background-color: #1DB954;
+    flex: auto;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 58px;
+    height: 46px;
+}
+
+#guess-button:hover {
+    background-color: #1ED760;
+}
+
+/* coming back to this at a later date .select-year{
+    background: transparent;
+    background-color: rgba(40, 40, 40, 0.5);
+    color: white;
+    border: 1px solid rgba(100, 100, 100, 0.4);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 19px;
+    box-sizing: border-box;
+    outline: none;
+    height: 48px;
+    width: 100px;
+}
+
+.select-year select {
+    background: transparent;
+    display: flex;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    cursor: pointer;
+    align-items: center; 
+    justify-content: center;
+} */
