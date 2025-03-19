@@ -8,49 +8,7 @@
 </head>
 <body>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
 
-        
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            function getAccessToken() {
-                let hash = window.location.hash.substring(1);
-                let params = new URLSearchParams(hash);
-                let token = params.get('access_token');
-                if (!token) {
-                token = new URLSearchParams(window.location.search).get('access_token');
-                }
-                return token;
-            }
-            
-            const token = getAccessToken();
-            console.log('oauth attempt');
-            const player = new Spotify.Player({
-                name: 'Web Playback SDK Quick Start Player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
-            });
-            console.log(player.name);
-            player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
-            });
-            player.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
-            });
-            player.addListener('initialization_error', ({ message }) => {
-            console.error(message);
-            });
-
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
-            player.connect();
-        }
-           
-    </script>
     <div class="game-container">
         <div class="game-view">
             <div class="game-function">
@@ -134,6 +92,49 @@
         <button id="guess-button">Guess!</button>
     </div>
     <script>
+
+        let player; 
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            
+
+            function getAccessToken() {
+                let hash = window.location.hash.substring(1);
+                let params = new URLSearchParams(hash);
+                let token = params.get('access_token');
+                if (!token) {
+                token = new URLSearchParams(window.location.search).get('access_token');
+                }
+                return token;
+            }
+            
+            const token = getAccessToken();
+            console.log('oauth attempt');
+            player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
+            });
+            console.log(player.name);
+            player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+            });
+            player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+            });
+            player.addListener('initialization_error', ({ message }) => {
+            console.error(message);
+            });
+
+            player.addListener('authentication_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('account_error', ({ message }) => {
+                console.error(message);
+            });
+            player.connect();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const playButton = document.querySelector('.play-button');
             const pauseButton = document.querySelector('.pause-button');
@@ -141,11 +142,13 @@
             playButton.addEventListener('click', function() {
                 playButton.style.display = 'none';
                 pauseButton.style.display = 'block';
+                player.resume();
             });
         
             pauseButton.addEventListener('click', function() {
                 pauseButton.style.display = 'none';
                 playButton.style.display = 'block';
+                player.pause();
             });
         });
     </script>
