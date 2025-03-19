@@ -93,7 +93,6 @@
     </div>
     <script>
         let player; 
-
         window.onSpotifyWebPlaybackSDKReady = () => {
             function getAccessToken() {
                 let hash = window.location.hash.substring(1);
@@ -112,13 +111,14 @@
                 getOAuthToken: cb => { cb(token); },
                 volume: 0.5
             });
+            player.connect();
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
 
                 // Queue the track when the player is ready
                 transferPlayback(device_id, token);
-                
+                playTrack(device_id, token);
             });
 
             player.addListener('not_ready', ({ device_id }) => {
@@ -136,27 +136,29 @@
             player.addListener('account_error', ({ message }) => {
                 console.error(message);
             });
-
-            player.connect();
         };
 
-        function queueTrack(trackUri, token) {
-            fetch('https://api.spotify.com/v1/me/player/queue?uri=' + encodeURIComponent(trackUri), {
+        function queueTrack(trackUri, deviceId, token) {
+            const url = `https://api.spotify.com/v1/me/player/queue?uri=${encodeURIComponent(trackUri)}&device_id=${deviceId}`;
+
+            return fetch(url, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
                 }
             })
             .then(response => {
                 if (response.ok) {
-                    console.log('Track added to queue');
+                    console.log('Track successfully added to queue');
+                    return Promise.resolve(); // Resolving the promise if the track is added successfully
                 } else {
-                    console.error('Failed to queue track');
+                    console.error('Failed to add track to queue:', response.status, response.statusText);
+                    return Promise.reject('Failed to add track'); // Rejecting the promise on failure
                 }
             })
             .catch(error => {
-                console.error('Error queuing track:', error);
+                console.error('Error adding track to queue:', error);
+                return Promise.reject(error); // Ensuring the error gets propagated
             });
         }
 
@@ -174,22 +176,28 @@
             .then(response => {
                 if (response.ok) {
                     console.log('Playback successfully transferred to device:', deviceId);
-                    queueTrack('spotify:track:3RIgHHpnFKj5Rni1shokDj', token);
-                player.nextTrack().then(() => {
-                console.log('Skipped to next track!');
-            });
                 } else {
                     console.error('Failed to transfer playback:', response.status, response.statusText);
-                    queueTrack('spotify:track:3RIgHHpnFKj5Rni1shokDj', token);
-                player.nextTrack().then(() => {
-                console.log('Skipped to next track!');
-            });
                 }
             })
             .catch(error => {
                 console.error('Error transferring playback:', error);
             });
         }
+        function playTrack(device_id, token) {
+            queueTrack('spotify:track:4xeFxp27NAtRoUrNcgVD9k', device_id, token)
+                .then(() => {
+                    return player.nextTrack(); // Proceed to the next track after queuing
+                })
+                .then(() => {
+                    console.log('Skipped to next track!');
+                    player.resume(); // Start playing the track
+                })
+                .catch((error) => {
+                    console.error('Error during track queue or playback:', error);
+                });
+        }
+
 
         document.addEventListener('DOMContentLoaded', function() {
             const playButton = document.querySelector('.play-button');
@@ -199,7 +207,7 @@
                 playButton.style.display = 'none';
                 pauseButton.style.display = 'block';
                 
-                player.togglePlay().then(() => {
+                player.resume().then(() => {
                     console.log('Track is playing');
                 }).catch(err => {
                     console.error('Error playing track:', err);
@@ -210,7 +218,7 @@
                 pauseButton.style.display = 'none';
                 playButton.style.display = 'block';
                 
-                player.togglePlay().then(() => {
+                player.pause().then(() => {
                     console.log('Track is paused');
                 }).catch(err => {
                     console.error('Error pausing track:', err);
