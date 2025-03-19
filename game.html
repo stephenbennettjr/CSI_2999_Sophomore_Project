@@ -105,7 +105,7 @@
             }
 
             const token = getAccessToken();
-            console.log('oauth attempt');
+            console.log('OAuth attempt');
             player = new Spotify.Player({
                 name: 'Guess the Game',
                 getOAuthToken: cb => { cb(token); },
@@ -118,7 +118,7 @@
 
                 // Queue the track when the player is ready
                 transferPlayback(device_id, token);
-                playTrack(device_id, token);
+                playTrack(device_id, token); // Call playTrack when the player is ready
             });
 
             player.addListener('not_ready', ({ device_id }) => {
@@ -184,14 +184,16 @@
                 console.error('Error transferring playback:', error);
             });
         }
+
         function playTrack(device_id, token) {
             queueTrack('spotify:track:4xeFxp27NAtRoUrNcgVD9k', device_id, token)
                 .then(() => {
-                    return player.nextTrack(); // Proceed to the next track after queuing
+                    console.log('Track queued successfully');
+                    // Immediately pause the track after it's queued
+                    return player.pause();
                 })
                 .then(() => {
-                    console.log('Skipped to next track!');
-                    player.resume(); // Start playing the track
+                    console.log('Track is paused after loading');
                 })
                 .catch((error) => {
                     console.error('Error during track queue or playback:', error);
@@ -207,7 +209,7 @@
                 playButton.style.display = 'none';
                 pauseButton.style.display = 'block';
                 
-                player.resume().then(() => {
+                player.togglePlay().then(() => {
                     console.log('Track is playing');
                 }).catch(err => {
                     console.error('Error playing track:', err);
