@@ -92,37 +92,41 @@
         <button id="guess-button">Guess!</button>
     </div>
     <script>
-
         let player; 
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            
 
+        window.onSpotifyWebPlaybackSDKReady = () => {
             function getAccessToken() {
                 let hash = window.location.hash.substring(1);
                 let params = new URLSearchParams(hash);
                 let token = params.get('access_token');
                 if (!token) {
-                token = new URLSearchParams(window.location.search).get('access_token');
+                    token = new URLSearchParams(window.location.search).get('access_token');
                 }
                 return token;
             }
-            
+
             const token = getAccessToken();
             console.log('oauth attempt');
             player = new Spotify.Player({
-                name: 'Web Playback SDK Quick Start Player',
+                name: 'Guess the Game',
                 getOAuthToken: cb => { cb(token); },
                 volume: 0.5
             });
-            console.log(player.name);
+
             player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
+                console.log('Ready with Device ID', device_id);
+
+                // Queue the track when the player is ready
+                transferPlayback(device_id, token);
+                
             });
+
             player.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
+                console.log('Device ID has gone offline', device_id);
             });
+
             player.addListener('initialization_error', ({ message }) => {
-            console.error(message);
+                console.error(message);
             });
 
             player.addListener('authentication_error', ({ message }) => {
@@ -132,26 +136,87 @@
             player.addListener('account_error', ({ message }) => {
                 console.error(message);
             });
+
             player.connect();
+        };
+
+        function queueTrack(trackUri, token) {
+            fetch('https://api.spotify.com/v1/me/player/queue?uri=' + encodeURIComponent(trackUri), {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Track added to queue');
+                } else {
+                    console.error('Failed to queue track');
+                }
+            })
+            .catch(error => {
+                console.error('Error queuing track:', error);
+            });
+        }
+
+        function transferPlayback(deviceId, token) {
+            fetch('https://api.spotify.com/v1/me/player', {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    device_ids: [deviceId]  // The device ID to transfer playback to
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Playback successfully transferred to device:', deviceId);
+                    queueTrack('spotify:track:3RIgHHpnFKj5Rni1shokDj', token);
+                player.nextTrack().then(() => {
+                console.log('Skipped to next track!');
+            });
+                } else {
+                    console.error('Failed to transfer playback:', response.status, response.statusText);
+                    queueTrack('spotify:track:3RIgHHpnFKj5Rni1shokDj', token);
+                player.nextTrack().then(() => {
+                console.log('Skipped to next track!');
+            });
+                }
+            })
+            .catch(error => {
+                console.error('Error transferring playback:', error);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             const playButton = document.querySelector('.play-button');
             const pauseButton = document.querySelector('.pause-button');
-        
+
             playButton.addEventListener('click', function() {
                 playButton.style.display = 'none';
                 pauseButton.style.display = 'block';
-                player.resume();
+                
+                player.togglePlay().then(() => {
+                    console.log('Track is playing');
+                }).catch(err => {
+                    console.error('Error playing track:', err);
+                });
             });
-        
+
             pauseButton.addEventListener('click', function() {
                 pauseButton.style.display = 'none';
                 playButton.style.display = 'block';
-                player.pause();
+                
+                player.togglePlay().then(() => {
+                    console.log('Track is paused');
+                }).catch(err => {
+                    console.error('Error pausing track:', err);
+                });
             });
         });
     </script>
 </body>
 </html>
-
