@@ -51,6 +51,22 @@ function updateUI() {
         }
     });
 }
+
+//updates segment lights to inactive or active
+function updateSegmentLights(currentAttempt) {
+    const segments = document.querySelectorAll('.element-select');
+
+    segments.forEach(segment => {
+        segment.classList.add('inactive');
+        segment.classList.remove('active');
+    });
+
+    if (currentAttempt <= gameState.maxGuess) {
+        segments[currentAttempt - 1].classList.add('active');
+        segments[currentAttempt - 1].classList.remove('inactive');
+    }
+}
+
 // Sets up a new song round.
 function newSong() {
     gameState.currentGuess = 1;
