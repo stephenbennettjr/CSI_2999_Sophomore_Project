@@ -5,6 +5,7 @@ let widget   =  SC.Widget(iframe);
 
 const playButton = document.querySelector('.play-button');
 const pauseButton = document.querySelector('.pause-button');
+const neutralButton = document.querySelector('.neutral-button');
 const startTime = document.querySelector('.start-time');
 const endTime = document.querySelector('.end-time');
 const progBarColor = document.querySelector('.progress-bar-fill');
@@ -12,9 +13,9 @@ const rewindButton = document.querySelector('.rewind-button');
 
 // songs to test
 const allSongs = [
-  { title: "Real Love Baby", trackUri: "soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
-  { title: "Welcome Home Warrior", trackUri: "soundcloud.com/clppng/welcome-home-warrior-feat?si=b94e397a860c42e2a325f71969326189&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
   { title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
+  { title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
+  { title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
 ];
 
 let availableSongs = [];
@@ -32,16 +33,31 @@ let gameState = {
 };
 
 function play() {
-    playButton.style.display = 'none';
-    pauseButton.style.display = 'block';
-    widget.play();
+    widget.bind(SC.Widget.Events.READY, () => {
+        playButton.style.display = 'none';
+        pauseButton.style.display = 'block';
+        neutralButton.style.display = 'none';
+        widget.play();
+    });
+    
 }
 
 function pause() {
     pauseButton.style.display = 'none';
     playButton.style.display = 'block';
+    neutralButton.style.display = 'none';
     widget.pause();
     
+}
+
+function newRound() {
+    widget.pause();
+
+    setTimeout(() => {
+        widget.getPosition((currentPos) => {
+            widget.seekTo(0);
+        });
+    }, 150);
 }
 
 function resetPlayStatus() {
@@ -55,6 +71,7 @@ function resetPlayStatus() {
 
     pauseButton.style.display = 'none';
     playButton.style.display = 'block';
+    neutralButton.style.display = 'none';
 }
 
 
@@ -106,7 +123,8 @@ function updateSegmentLights(currentAttempt) {
 
 // Sets up a new song round.
 function newSong() {
-    resetPlayStatus();
+    newRound();
+    
     progBarColor.style.width = `0%`;
     gameState.currentGuess = 1;
     gameState.attempts = 1;
@@ -118,18 +136,27 @@ function newSong() {
     
     // Update UI immediately with the new song info.
     updateUI();
-    iframe.src = `https://w.soundcloud.com/player/?url=https%3A//${gameState.secretSong.trackUri}`;
-    // Wait briefly before starting playback to ensure the state updates.
-
+    widget.load(`${gameState.secretSong.trackUri}`);
+    
+    widget.bind(SC.Widget.Events.READY, () => {
+        playButton.style.display = 'block'; 
+        neutralButton.style.display = 'none';
+        pauseButton.style.display = 'none';
+    });
 }
 
 // Checks the user's guess, updates attempts or score, and calls newSong() if correct.
 function checkGuess(guess) {
     if (guess.trim().toLowerCase() === gameState.secretSong.title.trim().toLowerCase()) {
+        
+        playButton.style.display = 'none';
+        pauseButton.style.display = 'none';
+        neutralButton.style.display = 'block';
         alert("Correct Guess!");
+        newSong();
         gameState.score += 500;
         document.getElementById('score').textContent = gameState.score;
-        newSong();
+        
         return;
     }
     

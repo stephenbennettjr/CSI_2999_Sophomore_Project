@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
+    <div class="top-header">
+        <div class="header-left">
+        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><rect fill="none" height="24" width="24"/><g><path d="M7.5,21H2V9h5.5V21z M14.75,3h-5.5v18h5.5V3z M22,11h-5.5v10H22V11z"/></g></svg>
+        </div>
+        <div class="header-title">Music Guessing Game</div>
+        <div class="header-right">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="white">
+                <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
+                <text x="12" y="16" text-anchor="middle" font-size="10" fill="white">i</text>
+            </svg>
+            <div class="info-popup">
+                <p><strong>Music Guessing Game</strong></p>
+                <p>Created by: Christian Kalaj, Patrick Harry , Terence Pierson, and Stephen Bennett </p>
+                <p>Guess the song based on short audio segments from the current song playing! The earlier you guess the more points you earn!</p>
+            </div>
+        </div>
+    </div>
     <iframe id="sc-player" width="10%" height="10" scrolling="no" frameborder="no" 
     allow="autoplay" 
     
@@ -69,8 +86,9 @@
                                       <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z" fill="currentColor"></path>
                                     </svg>
                                   </button>
-                                <button class="play-pause-button play-button">▶</button>
+                                <button class="play-pause-button play-button" style="display: none;">▶</button>
                                 <button class="play-pause-button pause-button" style="display: none;">⏸</button>
+                                <button class="play-pause-button neutral-button">⌛</button>
                                 <!--<button class="control-button" aria-label="Next">
                                     <svg width="16" height="16" viewBox="0 0 16 16">
                                       <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z" fill="currentColor"></path>
