@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <iframe id="sc-player" width="0%" height="0" scrolling="no" frameborder="no" 
+    allow="autoplay" 
+    
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+    </iframe>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
     <div class="game-container">
         <div class="game-view">
             <div class="game-function">
@@ -92,141 +97,9 @@
     </div>
     <script src="game.js"></script>
     <script>
-        let player; 
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            function getAccessToken() {
-                let hash = window.location.hash.substring(1);
-                let params = new URLSearchParams(hash);
-                let token = params.get('access_token');
-                if (!token) {
-                    token = new URLSearchParams(window.location.search).get('access_token');
-                }
-                return token;
-            }
-
-            const token = getAccessToken();
-            console.log('OAuth attempt');
-            player = new Spotify.Player({
-                name: 'Guess the Game',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
-            });
-            player.connect();
-
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-
-                // Queue the track when the player is ready
-                transferPlayback(device_id, token);
-                playTrack(device_id, token); // Call playTrack when the player is ready
-            });
-
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-
-            player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
-        };
-
-        function queueTrack(trackUri, deviceId, token) {
-            const url = `https://api.spotify.com/v1/me/player/queue?uri=${encodeURIComponent(trackUri)}&device_id=${deviceId}`;
-
-            return fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Track successfully added to queue');
-                    return Promise.resolve(); // Resolving the promise if the track is added successfully
-                } else {
-                    console.error('Failed to add track to queue:', response.status, response.statusText);
-                    return Promise.reject('Failed to add track'); // Rejecting the promise on failure
-                }
-            })
-            .catch(error => {
-                console.error('Error adding track to queue:', error);
-                return Promise.reject(error); // Ensuring the error gets propagated
-            });
-        }
-
-        function transferPlayback(deviceId, token) {
-            fetch('https://api.spotify.com/v1/me/player', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    device_ids: [deviceId]  // The device ID to transfer playback to
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Playback successfully transferred to device:', deviceId);
-                } else {
-                    console.error('Failed to transfer playback:', response.status, response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Error transferring playback:', error);
-            });
-        }
-
-        function playTrack(device_id, token) {
-            queueTrack('spotify:track:4xeFxp27NAtRoUrNcgVD9k', device_id, token)
-                .then(() => {
-                    console.log('Track queued successfully');
-                    // Immediately pause the track after it's queued
-                    return player.pause();
-                })
-                .then(() => {
-                    console.log('Track is paused after loading');
-                })
-                .catch((error) => {
-                    console.error('Error during track queue or playback:', error);
-                });
-        }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const playButton = document.querySelector('.play-button');
-            const pauseButton = document.querySelector('.pause-button');
 
-            playButton.addEventListener('click', function() {
-                playButton.style.display = 'none';
-                pauseButton.style.display = 'block';
-                
-                player.togglePlay().then(() => {
-                    console.log('Track is playing');
-                }).catch(err => {
-                    console.error('Error playing track:', err);
-                });
-            });
-
-            pauseButton.addEventListener('click', function() {
-                pauseButton.style.display = 'none';
-                playButton.style.display = 'block';
-                
-                player.pause().then(() => {
-                    console.log('Track is paused');
-                }).catch(err => {
-                    console.error('Error pausing track:', err);
-                });
-            });
-        });
     </script>
     <div id="song-title" style="margin: 1rem; font-size: 1.2rem; color: #fff;"></div>
 </body>

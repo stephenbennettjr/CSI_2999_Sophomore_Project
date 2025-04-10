@@ -1,13 +1,12 @@
 let player = null;
-let spotifyToken = null;
+let iframe   =  document.getElementById('sc-player');
+let widget   =  SC.Widget(iframe);
+
 
 // songs to test
 const allSongs = [
-  { title: "Sunflower", trackUri: "spotify:track:3KkXRkHbMCARz0aVfEt68P" },
-  { title: "Hey Jude", trackUri: "spotify:track:6dGnYIeXmHdcikdzNNDMm2" },
-  { title: "Bohemian Rhapsody", trackUri: "spotify:track:1AhDOtG9vPSOmsWgNW0BEY" },
-  { title: "Hotel California", trackUri: "spotify:track:40riOy7x9W7GXjyGp4pjAv" },
-  { title: "Stairway to Heaven", trackUri: "spotify:track:5CQ30WqJwcep0pYcV4AMNc" }
+  { title: "Real Love Baby", trackUri: "soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
+  { title: "Welcome Home Warrior", trackUri: "soundcloud.com/clppng/welcome-home-warrior-feat?si=b94e397a860c42e2a325f71969326189&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
 ];
 
 let availableSongs = [];
@@ -15,6 +14,7 @@ let gameState = {
     currentGuess: 1,
     maxGuess: 5,
     blurValues: [0.3, 0.25, 0.2, 0.15, 0.1],
+    lengthValues: [1000, 2000, 4000, 7000, 15000],
     currentBlur: 0.3,
     attempts: 1,
     score: 0,
@@ -75,17 +75,14 @@ function newSong() {
     
     // Choose a new song (without repeats) and store it.
     const nextSong = chooseSecretSong();
+    console.log(nextSong);
     gameState.secretSong = nextSong;
     
     // Update UI immediately with the new song info.
     updateUI();
-    
+    iframe.src = `https://w.soundcloud.com/player/?url=https%3A//${gameState.secretSong.trackUri}`;
     // Wait briefly before starting playback to ensure the state updates.
-    setTimeout(() => {
-        if (player && spotifyToken && gameState.deviceId) {
-            playSong(nextSong.trackUri);
-        }
-    }, 500);
+
 }
 
 // Checks the user's guess, updates attempts or score, and calls newSong() if correct.
@@ -120,108 +117,45 @@ function initializeGame() {
     newSong();
 }
 
-// Retrieves the Spotify access token from the URL.
-function getAccessToken() {
-    let hash = window.location.hash.substring(1);
-    let params = new URLSearchParams(hash);
-    let token = params.get('access_token');
-    if (!token) {
-        token = new URLSearchParams(window.location.search).get('access_token');
-    }
-    return token;
-}
 
-// Starts playback of a song using the Spotify Web API.
-function playSong(trackUri) {
-    if (!spotifyToken || !gameState.deviceId) return;
-    const url = `https://api.spotify.com/v1/me/player/play?device_id=${gameState.deviceId}`;
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${spotifyToken}`
-        },
-        body: JSON.stringify({ uris: [trackUri] })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log("Playback started for new song.");
-        } else {
-            console.error("Failed to start playback, status:", response.status, response.statusText);
-        }
-    })
-    .catch(error => {
-        console.error("Error starting playback:", error);
-    });
-}
 
-// Transfers playback to the specified device.
-function transferPlayback(deviceId, token) {
-    fetch('https://api.spotify.com/v1/me/player', {
-        method: 'PUT',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ device_ids: [deviceId] })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Playback transferred to device:', deviceId);
-        } else {
-            console.error('Failed to transfer playback:', response.status, response.statusText);
-        }
-    })
-    .catch(error => {
-        console.error('Error in transferPlayback:', error);
-    });
-}
-
-// Spotify Web Playback SDK initialization.
-window.onSpotifyWebPlaybackSDKReady = () => {
-    spotifyToken = getAccessToken();
-    console.log("Spotify token:", spotifyToken);
-    player = new Spotify.Player({
-        name: "Guess the Game Player",
-        getOAuthToken: cb => { cb(spotifyToken); },
-        volume: 0.5
-    });
-    
-    player.connect().then(success => {
-        if (success) {
-            console.log("Player connected successfully");
-        }
-    });
-    
-    player.addListener('ready', ({ device_id }) => {
-        console.log("Spotify Player is ready with Device ID", device_id);
-        gameState.deviceId = device_id;
-        transferPlayback(device_id, spotifyToken);
-        // Start the first song.
-        newSong();
-    });
-    
-    player.addListener('not_ready', ({ device_id }) => {
-        console.log("Device went offline", device_id);
-    });
-    
-    player.addListener('initialization_error', ({ message }) => {
-        console.error("Initialization Error:", message);
-    });
-    
-    player.addListener('authentication_error', ({ message }) => {
-        console.error("Authentication Error:", message);
-    });
-    
-    player.addListener('account_error', ({ message }) => {
-        console.error("Account Error:", message);
-    });
-};
 
 //starts game on page load
 document.addEventListener('DOMContentLoaded', function() {
     initializeGame();
+    function checkTimer() {
+        widget.getPosition(function(currentPos) {
+            widget.isPaused(function(pauseState) {
+                if (currentPos >= gameState.lengthValues[gameState.attempts] && !pauseState ) {
+                    resetPlayStatus();
+                }
+            });
+        });
+    }
+    const intervalCheck = setInterval(checkTimer, 50);
+
+    function play() {
+        playButton.style.display = 'none';
+        pauseButton.style.display = 'block';
+        widget.play();
+    }
     
+    function pause() {
+        pauseButton.style.display = 'none';
+        playButton.style.display = 'block';
+        widget.pause();
+        
+    }
+
+    function resetPlayStatus() {
+        pause();
+        widget.seekTo(0);
+    }
+
+    const playButton = document.querySelector('.play-button');
+    const pauseButton = document.querySelector('.pause-button');
+
+
     document.getElementById('guess-button').addEventListener('click', () => {
         const guess = document.getElementById('guess').value;
         if (guess.trim() !== "") {
@@ -238,5 +172,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('guess').value = "";
             }
         }
+    });
+    
+
+    playButton.addEventListener('click', function() {
+        play();
+    });
+
+    pauseButton.addEventListener('click', function() {
+        pause();
     });
 });
