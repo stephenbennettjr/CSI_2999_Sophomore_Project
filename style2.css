@@ -182,7 +182,7 @@ body {
     background-color: #535353;
     border-radius: 2px;
     position: relative;
-    cursor: pointer;
+    /*cursor: pointer;*/
   }
   
   .progress-fill {
@@ -192,7 +192,7 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 30%; 
+    width: 0%; 
   }
   
   .progress-handle {
@@ -224,6 +224,7 @@ body {
   .guess-container {
     display: flex;
     position: relative;
+    z-index: 0;
     gap: 1rem;
     width: 700px;
     height: 80px;
@@ -277,7 +278,13 @@ body {
 #guess-button:hover {
     background-color: #1ED760;
 }
+#song-title {
+  display: none;
+}
 
+iframe#sc-player {
+  display: none;
+}
 /* coming back to this at a later date .select-year{
     background: transparent;
     background-color: rgba(40, 40, 40, 0.5);

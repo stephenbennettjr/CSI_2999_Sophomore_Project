@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <iframe id="sc-player" width="0%" height="0" scrolling="no" frameborder="no" 
+    <iframe id="sc-player" width="10%" height="10" scrolling="no" frameborder="no" 
     allow="autoplay" 
     
     src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
@@ -56,26 +56,26 @@
                         <div class="controls-container">
                             <div class="player-controls">
                               <div class="scrubber-container">
-                                <span class="time-display">1:23</span>
+                                <span class="time-display start-time" id="start-time">0:00</span>
                                 <div class="progress-bar">
-                                  <div class="progress-fill"></div>
-                                  <div class="progress-handle"></div>
+                                  <div class="progress-fill progress-bar-fill"></div>
+                                  <!--<div class="progress-handle"></div>-->
                                 </div>
-                                <span class="time-display">3:45</span>
+                                <span class="time-display end-time" id="end-time">0:01</span>
                               </div>
                               <div class="play-controls">
-                                <button class="control-button" aria-label="Previous">
+                                <button class="control-button rewind-button" aria-label="Previous">
                                     <svg width="16" height="16" viewBox="0 0 16 16">
                                       <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z" fill="currentColor"></path>
                                     </svg>
                                   </button>
                                 <button class="play-pause-button play-button">▶</button>
                                 <button class="play-pause-button pause-button" style="display: none;">⏸</button>
-                                <button class="control-button" aria-label="Next">
+                                <!--<button class="control-button" aria-label="Next">
                                     <svg width="16" height="16" viewBox="0 0 16 16">
                                       <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z" fill="currentColor"></path>
                                     </svg>
-                                  </button>
+                                  </button>-->
                               </div>
                             </div>
                           </div>

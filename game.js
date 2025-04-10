@@ -3,10 +3,18 @@ let iframe   =  document.getElementById('sc-player');
 let widget   =  SC.Widget(iframe);
 
 
+const playButton = document.querySelector('.play-button');
+const pauseButton = document.querySelector('.pause-button');
+const startTime = document.querySelector('.start-time');
+const endTime = document.querySelector('.end-time');
+const progBarColor = document.querySelector('.progress-bar-fill');
+const rewindButton = document.querySelector('.rewind-button');
+
 // songs to test
 const allSongs = [
   { title: "Real Love Baby", trackUri: "soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
   { title: "Welcome Home Warrior", trackUri: "soundcloud.com/clppng/welcome-home-warrior-feat?si=b94e397a860c42e2a325f71969326189&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" },
+  { title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
 ];
 
 let availableSongs = [];
@@ -14,13 +22,42 @@ let gameState = {
     currentGuess: 1,
     maxGuess: 5,
     blurValues: [0.3, 0.25, 0.2, 0.15, 0.1],
-    lengthValues: [1000, 2000, 4000, 7000, 15000],
+    lengthValues: [1000, 2000, 7000, 11000, 15000],
     currentBlur: 0.3,
     attempts: 1,
     score: 0,
     secretSong: null,  // Will be set to one of the song objects
-    deviceId: null
+    deviceId: null,
+    currentPercent: 0
 };
+
+function play() {
+    playButton.style.display = 'none';
+    pauseButton.style.display = 'block';
+    widget.play();
+}
+
+function pause() {
+    pauseButton.style.display = 'none';
+    playButton.style.display = 'block';
+    widget.pause();
+    
+}
+
+function resetPlayStatus() {
+    widget.pause();
+
+    setTimeout(() => {
+        widget.getPosition((currentPos) => {
+            widget.seekTo(0);
+        });
+    }, 150);
+
+    pauseButton.style.display = 'none';
+    playButton.style.display = 'block';
+}
+
+
 function resetAvailableSongs() {
     // Create a fresh copy of the songs list.
     availableSongs = allSongs.slice();
@@ -69,13 +106,14 @@ function updateSegmentLights(currentAttempt) {
 
 // Sets up a new song round.
 function newSong() {
+    resetPlayStatus();
+    progBarColor.style.width = `0%`;
     gameState.currentGuess = 1;
     gameState.attempts = 1;
     gameState.currentBlur = gameState.blurValues[0];
     
     // Choose a new song (without repeats) and store it.
     const nextSong = chooseSecretSong();
-    console.log(nextSong);
     gameState.secretSong = nextSong;
     
     // Update UI immediately with the new song info.
@@ -113,6 +151,9 @@ function checkGuess(guess) {
 // Resets the overall game state.
 function initializeGame() {
     gameState.score = 0;
+    progBarColor.style.width = `0%`;
+    startTime.textContent = "0:00"
+    resetPlayStatus();
     resetAvailableSongs();
     newSong();
 }
@@ -123,37 +164,32 @@ function initializeGame() {
 //starts game on page load
 document.addEventListener('DOMContentLoaded', function() {
     initializeGame();
+
+
+    const intervalCheck = setInterval(checkTimer, 10);
+
+
+
     function checkTimer() {
         widget.getPosition(function(currentPos) {
             widget.isPaused(function(pauseState) {
-                if (currentPos >= gameState.lengthValues[gameState.attempts] && !pauseState ) {
+                
+                if (currentPos <= gameState.lengthValues[gameState.attempts-1]) {
+                    startTime.textContent = "0:" + (Math.floor(currentPos/1000)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+                    gameState.currentPercent = (currentPos/gameState.lengthValues[gameState.attempts-1]*100);
+                    progBarColor.style.width = `${gameState.currentPercent}%`;
+                }
+                if (currentPos >= (gameState.lengthValues[gameState.attempts-1]) && !pauseState ) {
                     resetPlayStatus();
                 }
+                endTime.textContent = "0:" + (gameState.lengthValues[gameState.attempts-1]/1000).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        
             });
+            
+            
         });
     }
-    const intervalCheck = setInterval(checkTimer, 50);
 
-    function play() {
-        playButton.style.display = 'none';
-        pauseButton.style.display = 'block';
-        widget.play();
-    }
-    
-    function pause() {
-        pauseButton.style.display = 'none';
-        playButton.style.display = 'block';
-        widget.pause();
-        
-    }
-
-    function resetPlayStatus() {
-        pause();
-        widget.seekTo(0);
-    }
-
-    const playButton = document.querySelector('.play-button');
-    const pauseButton = document.querySelector('.pause-button');
 
 
     document.getElementById('guess-button').addEventListener('click', () => {
@@ -181,5 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     pauseButton.addEventListener('click', function() {
         pause();
+        
+    });
+
+    rewindButton.addEventListener('click', function() {
+        widget.seekTo(0);
     });
 });
