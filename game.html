@@ -9,25 +9,200 @@
 <body>
     <div class="top-header">
         <div class="header-left">
-        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><rect fill="none" height="24" width="24"/><g><path d="M7.5,21H2V9h5.5V21z M14.75,3h-5.5v18h5.5V3z M22,11h-5.5v10H22V11z"/></g></svg>
+            <button id="leaderboard">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
+                    <rect fill="none" height="24" width="24"/>
+                    <g>
+                        <path d="M7.5,21H2V9h5.5V21z M14.75,3h-5.5v18h5.5V3z M22,11h-5.5v10H22V11z"/>
+                    </g>
+                </svg>
+            </button>
         </div>
         <div class="header-title">Music Guessing Game</div>
         <div class="header-right">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="white">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
-                <text x="12" y="16" text-anchor="middle" font-size="10" fill="white">i</text>
-            </svg>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/>
+                    <text x="12" y="16" text-anchor="middle" font-size="10" fill="white">i</text>
+                </svg>
+            </button>
             <div class="info-popup">
                 <p><strong>Music Guessing Game</strong></p>
-                <p>Created by: Christian Kalaj, Patrick Harry , Terence Pierson, and Stephen Bennett </p>
-                <p>Guess the song based on short audio segments from the current song playing! The earlier you guess the more points you earn!</p>
+                <p>Created by: Christian Kalaj, Patrick Harry, Terence Pierson, and Stephen Bennett</p>
+                <p>Guess the song based on short audio segments from the current song playing! The earlier you guess, the more points you earn!</p>
             </div>
         </div>
     </div>
-    <iframe id="sc-player" width="10%" height="10" scrolling="no" frameborder="no" 
-    allow="autoplay" 
-    
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+    <div class="lb-modal-container" id="lb-modal-container">
+        <div class="lb-modal">
+            <div class="lb-modal-content">
+                <button id="close-leaderboard"><span class="lb-close">&times;</span></button>
+                <div class="lb-container">
+                    <div class="lb-header">
+                        <div class="lb-title-rank">Rank</div>
+                        <div class="lb-title-player">Player</div>
+                        <div class="lb-title-score">Score</div>
+                        <div class="lb-title-date">Date</div>
+                    </div>
+                    <div id="leaderboard-entries">
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-1">1</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1500</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-2">2</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1450</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-3">3</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1440</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-4">4</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1420</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-5">5</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1410</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-6">6</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1400</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-7">7</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1390</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-8">8</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1380</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-9">9</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1370</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-10">10</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1360</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-11">11</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1350</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-12">12</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1340</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-13">13</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1330</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-14">14</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1320</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-15">15</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1310</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-16">16</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1300</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-17">17</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1290</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-18">18</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1280</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-19">19</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1270</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-20">20</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1260</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-21">21</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1250</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-22">22</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1240</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-23">23</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1230</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-24">24</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1220</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        <div class="lb-player-row">
+                            <div class="lb-rank lb-rank-25">25</div>
+                            <div class="lb-player-name">placeholder</div>
+                            <div class="lb-player-score">1210</div>
+                            <div class="lb-player-date">03/19/24</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe id="sc-player" width="10%" height="10" scrolling="no" frameborder="no" allow="autoplay" 
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
     </iframe>
     <script src="https://w.soundcloud.com/player/api.js"></script>
     <div class="game-container">
@@ -67,36 +242,30 @@
                 <div class="right-div">
                     <div class="player-container">
                         <div class="art-container">
-                            <blur><img id="album-art" src="images/albumart2.jpg" alt="Album Art"></blur>
+                            <img id="album-art" src="images/albumart2.jpg" alt="Album Art">
                             <div id="blur" class="blur"></div>
                         </div>
                         <div class="controls-container">
                             <div class="player-controls">
-                              <div class="scrubber-container">
-                                <span class="time-display start-time" id="start-time">0:00</span>
-                                <div class="progress-bar">
-                                  <div class="progress-fill progress-bar-fill"></div>
-                                  <!--<div class="progress-handle"></div>-->
+                                <div class="scrubber-container">
+                                    <span class="time-display start-time" id="start-time">0:00</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill progress-bar-fill"></div>
+                                    </div>
+                                    <span class="time-display end-time" id="end-time">0:01</span>
                                 </div>
-                                <span class="time-display end-time" id="end-time">0:01</span>
-                              </div>
-                              <div class="play-controls">
-                                <button class="control-button rewind-button" aria-label="Previous">
-                                    <svg width="16" height="16" viewBox="0 0 16 16">
-                                      <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z" fill="currentColor"></path>
-                                    </svg>
-                                  </button>
-                                <button class="play-pause-button play-button" style="display: none;">▶</button>
-                                <button class="play-pause-button pause-button" style="display: none;">⏸</button>
-                                <button class="play-pause-button neutral-button">⌛</button>
-                                <!--<button class="control-button" aria-label="Next">
-                                    <svg width="16" height="16" viewBox="0 0 16 16">
-                                      <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z" fill="currentColor"></path>
-                                    </svg>
-                                  </button>-->
-                              </div>
+                                <div class="play-controls">
+                                    <button class="control-button rewind-button" aria-label="Previous">
+                                        <svg width="16" height="16" viewBox="0 0 16 16">
+                                            <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="play-pause-button play-button" style="display: none;">▶</button>
+                                    <button class="play-pause-button pause-button" style="display: none;">⏸</button>
+                                    <button class="play-pause-button neutral-button">⌛</button>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,18 +275,26 @@
         <div class="guess-view">
             <input type="text" id="guess" class="guess-input" placeholder="Guess the song...">
         </div>
-        <div class="select-year">
-            <!--<select id="year-select">
-                <option value="year" id ="year">Select Year</option>
-            </select> -->
-        </div>
         <button id="guess-button">Guess!</button>
     </div>
     <script src="game.js"></script>
-    <script>
+    <script> 
+        //show modal
+        document.getElementById("leaderboard").addEventListener("click", function () {
+            document.getElementById("lb-modal-container").style.display = "flex";
+        });
 
+        // Hide modal
+        document.getElementById("close-leaderboard").addEventListener("click", function () {
+            document.getElementById("lb-modal-container").style.display = "none";
+        });
 
-
+        //Close the modal by clicking outside of it
+        document.getElementById("lb-modal-container").addEventListener("click", function (e) {
+            if (e.target === this) {
+                this.style.display = "none";
+            }
+        });
     </script>
     <div id="song-title" style="margin: 1rem; font-size: 1.2rem; color: #fff;"></div>
 </body>
