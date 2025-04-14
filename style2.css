@@ -172,7 +172,7 @@ button {
 .header-right:hover .info-popup {
   display: block;
 }
-
+/* leaderboard styling*/
 .lb-modal-container {
     display: none;
     position: fixed;
@@ -203,8 +203,8 @@ button {
     width: 100%;
     max-height: 70vh;
     overflow-y: auto;
-    scrollbar-width: none;  /* Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  
+    -ms-overflow-style: none;  
 }
 
 .lb-container::-webkit-scrollbar {
@@ -314,7 +314,7 @@ button {
     font-size: 28px;
     display: block;
 }
-
+/* segment styling*/
 .segment-selector {
     display: flex;
     flex-direction: column;
@@ -354,7 +354,7 @@ button {
     font-size: 14px; 
     flex: 1;
 }
-
+/* stats styling*/
 .stats-container {
     display: flex;
     justify-content: space-between;
@@ -372,7 +372,7 @@ button {
     padding: 0;
     margin: 0;
 }
-
+/* player styling*/
 .player-container {
     display: flex;
     flex-direction: column;
@@ -442,7 +442,7 @@ button {
     color: #b3b3b3;
     min-width: 40px;
   }
-  
+   /* progress bar styling*/
   .progress-bar {
     flex-grow: 1;
     height: 4px;
@@ -488,6 +488,7 @@ button {
     align-items: center;
     transition: color 0.2s;
   }
+  /* guess input styling*/
   .guess-container {
     display: flex;
     position: relative;
@@ -552,3 +553,143 @@ button {
 iframe#sc-player {
   display: none;
 }
+/* alert styling*/
+.custom-alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 350px;
+    display: flex;
+    align-items: flex-start;
+    animation: slideIn 0.3s ease-out forwards;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+  
+  .success-alert {
+    background-color: rgba(16, 185, 129, 0.9); /* Green with opacity */
+  }
+  
+  .error-alert {
+    background-color: rgba(239, 68, 68, 0.9); /* Red with opacity */
+  }
+  
+  .alert-icon {
+    margin-right: 12px;
+    font-size: 24px;
+    min-width: 24px;
+  }
+  
+  .alert-content {
+    flex-grow: 1;
+  }
+  
+  .alert-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 16px;
+  }
+  
+  .alert-message {
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  
+  .song-info {
+    display: flex;
+    margin-top: 12px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .album-art {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #333;
+    margin-right: 12px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .song-details h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+  }
+  
+  .song-details p {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  
+  .share-button {
+    display: flex;
+    align-items: center;
+    background-color: #1DB954; /* Spotify/SoundCloud green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  
+  .share-icon {
+    margin-right: 6px;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0;
+    margin-left: 10px;
+  }
+  
+  .close-button:hover {
+    opacity: 1;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  
+  .alert-hide {
+    animation: fadeOut 0.3s ease-in forwards;
+  }
+
+  .wrong-answer {
+    animation: flashRed 0.8s;
+  }
+  
+  @keyframes flashRed {
+    50% { background-color: rgba(255, 0, 0, 0.2); }
+  }
