@@ -273,10 +273,67 @@
     </div>
     <div class="guess-container">
         <div class="guess-view">
-            <input type="text" id="guess" class="guess-input" placeholder="Guess the song...">
+          <input type="text" id="guess" class="guess-input" placeholder="Guess the song..." list="song-suggestions">
+          <datalist id="song-suggestions">
+            <option value="Not Like Us">
+            <option value="Beat It">
+            <option value="Hotel California">
+            <option value="Bohemian Rhapsody">
+            <option value="Smells Like Teen Spirit">
+            <option value="Billie Jean">
+            <option value="Sweet Child O' Mine">
+            <option value="Stairway to Heaven">
+            <option value="Like a Rolling Stone">
+            <option value="Purple Haze">
+            <option value="Johnny B. Goode">
+            <option value="Hey Jude">
+            <option value="I Want to Hold Your Hand">
+            <option value="Good Vibrations">
+            <option value="Born to Run">
+            <option value="Satisfaction">
+            <option value="Yesterday">
+            <option value="Imagine">
+            <option value="What's Going On">
+            <option value="Respect">
+            <option value="Dancing Queen">
+            <option value="Superstition">
+            <option value="London Calling">
+            <option value="Thriller">
+            <option value="Livin' on a Prayer">
+            <option value="Sweet Dreams (Are Made of This)">
+            <option value="Every Breath You Take">
+            <option value="When Doves Cry">
+            <option value="With or Without You">
+            <option value="Smells Like Teen Spirit">
+            <option value="Wonderwall">
+            <option value="Creep">
+            <option value="Lose Yourself">
+            <option value="Hey Ya!">
+            <option value="Crazy in Love">
+            <option value="Umbrella">
+            <option value="Rolling in the Deep">
+            <option value="Uptown Funk">
+            <option value="Blinding Lights">
+            <option value="Shape of You">
+            <option value="Bad Guy">
+            <option value="Old Town Road">
+            <option value="Despacito">
+            <option value="God's Plan">
+            <option value="Sicko Mode">
+            <option value="Humble">
+            <option value="All I Want for Christmas Is You">
+            <option value="Real Love Baby">
+          </datalist>
         </div>
         <button id="guess-button">Guess!</button>
-    </div>
+      </div>
+      
+      <style>
+      input::-webkit-calendar-picker-indicator {
+        opacity: 0.2;
+        filter: invert(1); 
+      }
+      </style>
     <script src="game.js"></script>
     <script> 
         //show modal
@@ -297,5 +354,51 @@
         });
     </script>
     <div id="song-title" style="margin: 1rem; font-size: 1.2rem; color: #fff;"></div>
+
+<div id="successAlert" class="custom-alert success-alert" style="display: none;">
+    <div class="alert-icon">✓</div>
+    <div class="alert-content">
+      <div class="alert-title">Correct!</div>
+      <div class="alert-message">Great job! You guessed the song correctly.</div>
+      
+      <div class="song-info">
+        <div class="album-art" id="alert-album-art"></div>
+        <div class="song-details">
+          <h4 id="alert-song-title"></h4>
+          <p id="alert-artist"></p>
+          <button class="share-button" id="share-song">
+            <span class="share-icon">↗</span> Share
+          </button>
+        </div>
+      </div>
+    </div>
+    <button class="close-button" id="close-success-alert">&times;</button>
+  </div>
+  
+  <div id="errorAlert" class="custom-alert error-alert" style="display: none;">
+    <div class="alert-icon">!</div>
+    <div class="alert-content">
+      <div class="alert-title">Incorrect</div>
+      <div class="alert-message" id="error-message"></div>
+    </div>
+    <button class="close-button" id="close-error-alert">&times;</button>
+  </div>
+  
+  <div id="gameOverAlert" class="custom-alert error-alert" style="display: none;">
+    <div class="alert-icon">!</div>
+    <div class="alert-content">
+      <div class="alert-title">Game Over</div>
+      <div class="alert-message" id="game-over-message"></div>
+      
+      <div class="song-info">
+        <div class="album-art" id="game-over-album-art"></div>
+        <div class="song-details">
+          <h4 id="game-over-song-title"></h4>
+          <p id="game-over-artist">Artist</p>
+        </div>
+      </div>
+    </div>
+    <button class="close-button" id="close-game-over-alert">&times;</button>
+  </div>
 </body>
 </html>
