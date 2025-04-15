@@ -382,34 +382,6 @@ function showSuccessAlert(songTitle, trackUri) {
       }
   }
   
-  // Make sure to initialize lastErrorShown when starting a new song
-  function newSong() {
-      newRound();
-      
-      progBarColor.style.width = `0%`;
-      gameState.currentGuess = 1;
-      gameState.attempts = 1;
-      gameState.currentBlur = gameState.blurValues[0];
-      gameState.isPlaying = false;
-      gameState.lastErrorShown = false;  // Reset error tracking
-      
-      // Choose a new song (without repeats) and store it.
-      const nextSong = chooseSecretSong();
-      gameState.secretSong = nextSong;
-      
-      console.log("Loading new song:", gameState.secretSong.title);
-      
-      // Update UI immediately with the new song info.
-      widget.load(`https://${gameState.secretSong.trackUri}`, {
-          callback: function() {
-              console.log("Song loaded successfully");
-              updateUI();
-              playButton.style.display = 'block'; 
-              neutralButton.style.display = 'none';
-              pauseButton.style.display = 'none';
-          }
-      });
-  }
   
 // Resets the overall game state.
 function initializeGame() {
