@@ -13,32 +13,87 @@ const rewindButton = document.querySelector('.rewind-button');
 // songs to test
 const allSongs = [
     { 
-      title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-UPEAvUqrkz6a-0-t500x500.jpg"
+      title: "Not Like Us - Kendrick Lamar", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-UPEAvUqrkz6a-0-t500x500.jpg"
     },
     { 
-      title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
+      title: "Beat It - Michael Jackson", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
     },
     { 
-      title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YFRPbwj60arT-0-t500x500.jpg" 
+      title: "Hotel California - The Eagles", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YFRPbwj60arT-0-t500x500.jpg" 
     },
     { 
-      title: "Blinding Lights", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
+      title: "Blinding Lights - The Weeknd", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
     },
     { 
-      title: "Bad Guy", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-tmxRIlncrsjv-0-t500x500.jpg" 
+      title: "Bad Guy - Billie Eilish", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-tmxRIlncrsjv-0-t500x500.jpg" 
     },
     { 
-      title: "Humble", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-yqTGeeaL2BRc-0-t500x500.jpg" 
+      title: "Humble - Kendrick Lamar", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-yqTGeeaL2BRc-0-t500x500.jpg" 
     },
     { 
-      title: "Starboy", trackUri: "soundcloud.com/theweeknd/starboy?si=f4d076c03f0442aca0d8c3fdb4afebee&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" 
+      title: "Starboy - The Weeknd", trackUri: "soundcloud.com/theweeknd/starboy?si=f4d076c03f0442aca0d8c3fdb4afebee&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" 
     },
     { 
-      title: "Levitating", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
+      title: "Levitating - Dua Lipa", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
     },
   ];
 
-
+  const guessableSongTitles = [
+    "Real Love Baby - Father John Misty",
+    "Ring of Fire - Johnny Cash",
+    "Hotel California - Eagles",
+    "Beat It - Michael Jackson",
+    "Blinding Lights - The Weeknd",
+    "Bad Guy - Billie Eilish",
+    "Humble - Kendrick Lamar",
+    "Starboy - The Weeknd",
+    "Levitating - Dua Lipa",
+    "Not Like Us - Kendrick Lamar",
+    "Purple Haze - Jimi Hendrix",
+    "Bohemian Rhapsody - Queen",
+    "Imagine - John Lennon",
+    "Hey Jude - The Beatles",
+    "Wonderwall - Oasis",
+    "Smells Like Teen Spirit - Nirvana",
+    "Rolling in the Deep - Adele",
+    "Dancing Queen - ABBA",
+    "Sweet Child O' Mine - Guns N' Roses",
+    "Lose Yourself - Eminem",
+    "Uptown Funk - Mark Ronson ft. Bruno Mars",
+    "Like a Rolling Stone - Bob Dylan",
+    "Shape of You - Ed Sheeran",
+    "Thriller - Michael Jackson",
+    "Every Breath You Take - The Police",
+    "I Will Always Love You - Whitney Houston",
+    "Shake It Off - Taylor Swift",
+    "Superstition - Stevie Wonder",
+    "Bohemian Like You - The Dandy Warhols",
+    "Happy - Pharrell Williams",
+    "Someone Like You - Adele",
+    "Born to Run - Bruce Springsteen",
+    "Take On Me - A-ha",
+    "Viva La Vida - Coldplay",
+    "Let It Be - The Beatles",
+    "Africa - Toto",
+    "No Woman, No Cry - Bob Marley & The Wailers",
+    "Call Me Maybe - Carly Rae Jepsen",
+    "Stayin' Alive - Bee Gees",
+    "Poker Face - Lady Gaga",
+    "Wake Me Up - Avicii",
+    "Shallow - Lady Gaga & Bradley Cooper",
+    "We Will Rock You - Queen",
+    "Gangnam Style - PSY",
+    "Shape of You - Ed Sheeran",
+    "Despacito - Luis Fonsi & Daddy Yankee",
+    "Clocks - Coldplay",
+    "Halo - Beyoncé",
+    "Sorry - Justin Bieber",
+    "Old Town Road - Lil Nas X",
+    "Blurred Lines - Robin Thicke ft. Pharrell",
+    "All of Me - John Legend",
+    "Chandelier - Sia"
+];
+const songTitles = Array.from(new Set([...allSongs.map(song => song.title), ...guessableSongTitles]));
 let availableSongs = [];
 let gameState = {
     currentGuess: 1,
@@ -524,4 +579,46 @@ document.addEventListener('DOMContentLoaded', function() {
         const { start } = getSegmentBoundaries();
         widget.seekTo(start);
     });
+});
+
+
+//Autocomplete code
+
+// take guess element, autocomplete list element, and all song titles as consts
+const inputElement = document.getElementById('guess');
+const autocompleteList = document.getElementById('autocomplete-list');
+
+
+//listen for input
+inputElement.addEventListener('input', function() {
+  //make the input lowercase  
+  const inputValue = this.value.toLowerCase();
+    //clear previous suggestions  
+  autocompleteList.innerHTML = ''; 
+  //if empty, show nothing
+    if (!inputValue) {
+        return; 
+    }
+
+    // songs filtered if the title has the input text, slice to show only 4 songs
+    const filteredSuggestions = songTitles.filter(title => 
+        title.toLowerCase().includes(inputValue)
+    ).slice(0,4);
+
+    
+    //iterate over each and create a pop up for each
+    filteredSuggestions.forEach(suggestion => {
+        const listItem = document.createElement('li');
+        listItem.textContent = suggestion;
+        listItem.addEventListener('click', function() {
+            inputElement.value = suggestion; //if clicked, set guess to suggestion
+            autocompleteList.innerHTML = ''; //clear suggestion list at this point
+        });
+        autocompleteList.appendChild(listItem);
+    });
+});
+
+//close when lost focus
+inputElement.addEventListener('blur', function() {
+    setTimeout(() => autocompleteList.innerHTML = '', 150); //delay in case of click
 });
