@@ -12,10 +12,32 @@ const rewindButton = document.querySelector('.rewind-button');
 
 // songs to test
 const allSongs = [
-  { title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
-  { title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
-  { title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"},
-];
+    { 
+      title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2731df4b775e18917ec609f4139"
+    },
+    { 
+      title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
+    },
+    { 
+      title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273bc414c99ab0422157f040fc5" 
+    },
+    { 
+      title: "Blinding Lights", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
+    },
+    { 
+      title: "Bad Guy", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b27360cfce290d53817b4e8f029c" 
+    },
+    { 
+      title: "Humble", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b27312a76d1b13ef05c4809b4157" 
+    },
+    { 
+      title: "Starboy", trackUri: "soundcloud.com/theweeknd/starboy?si=f4d076c03f0442aca0d8c3fdb4afebee&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" 
+    },
+    { 
+      title: "Levitating", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
+    },
+  ];
+
 
 let availableSongs = [];
 let gameState = {
@@ -55,7 +77,15 @@ function showSuccessAlert(songTitle, trackUri) {
     albumArt.style.filter = 'blur(0)'; // Make sure it's not blurred in the alert
   }
   
-  // Show the alert
+  const artUrl = gameState.secretSong.art;
+
+  if (artUrl) {
+    albumArt.style.backgroundImage = `url(${artUrl})`;
+    albumArt.style.backgroundSize = 'cover';
+    albumArt.style.backgroundPosition = 'center';
+    albumArt.style.filter = 'blur(0)';
+  }
+
   successAlert.style.display = 'flex';
   
   // Setup share button
@@ -68,7 +98,10 @@ function showSuccessAlert(songTitle, trackUri) {
   closeButton.onclick = function() {
     closeAlert(successAlert);
   };
-  
+
+  setTimeout(function() {
+    closeAlert(successAlert);
+  }, 6000);
 }
 
 // Function to show game over alert
@@ -88,18 +121,24 @@ function showGameOverAlert(songTitle, trackUri) {
   messageEl.textContent = `The correct song was: ${songTitle}`;
   
   const gameAlbumArt = document.getElementById('album-art');
-  if (gameAlbumArt) {
-    const style = window.getComputedStyle(gameAlbumArt);
-    albumArt.style.backgroundImage = style.backgroundImage;
+
+  const artUrl = gameState.secretSong.art;
+  if (artUrl) {
+    albumArt.style.backgroundImage = `url(${artUrl})`;
+    albumArt.style.backgroundSize = 'cover';
+    albumArt.style.backgroundPosition = 'center';
     albumArt.style.filter = 'blur(0)';
   }
-  
+
   gameOverAlert.style.display = 'flex';
   
   const closeButton = document.getElementById('close-game-over-alert');
   closeButton.onclick = function() {
     closeAlert(gameOverAlert);
   };
+  setTimeout(function() {
+    closeAlert(gameOverAlert);
+  }, 6000);
 }
 
 function extractArtistFromUri(trackUri) {
@@ -201,7 +240,14 @@ function chooseSecretSong() {
 }
 
 function updateUI() {
-    document.getElementById('album-art').style.filter = `blur(${gameState.currentBlur}rem)`;
+    const albumArtElement = document.getElementById('album-art');
+    albumArtElement.style.filter = `blur(${gameState.currentBlur}rem)`;
+    
+    // Ensure album art is set
+    albumArtElement.style.backgroundImage = `url(${gameState.secretSong.art})`;
+    albumArtElement.style.backgroundSize = 'cover';
+    albumArtElement.style.backgroundPosition = 'center';
+    
     document.getElementById('attempts').textContent = gameState.attempts;
     document.getElementById('score').textContent = gameState.score;
     // For testing: display the current song title.
@@ -243,10 +289,22 @@ function newSong() {
     gameState.attempts = 1;
     gameState.currentBlur = gameState.blurValues[0];
     gameState.isPlaying = false;
+    gameState.lastErrorShown = false;  // Reset error tracking
     
     // Choose a new song (without repeats) and store it.
     const nextSong = chooseSecretSong();
     gameState.secretSong = nextSong;
+    
+    // Update album art
+    const albumArtElement = document.getElementById('album-art');
+    albumArtElement.style.backgroundImage = '';
+    
+    void albumArtElement.offsetWidth;
+    
+    albumArtElement.style.backgroundImage = `url(${gameState.secretSong.art})`;
+    albumArtElement.style.backgroundSize = 'cover';
+    albumArtElement.style.backgroundPosition = 'center';
+    albumArtElement.style.filter = `blur(${gameState.currentBlur}rem)`;
     
     console.log("Loading new song:", gameState.secretSong.title);
     
@@ -381,7 +439,6 @@ function showSuccessAlert(songTitle, trackUri) {
           }, 100);
       }
   }
-  
   
 // Resets the overall game state.
 function initializeGame() {
