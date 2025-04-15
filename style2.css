@@ -382,14 +382,30 @@ button {
 .art-container {
   width: 351px;
   height: 300px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e1e1e;
 }
 
-.art-container img {
+.album-art {
   width: 100%;
   height: 100%;
   border-radius: 20px;
   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
-  filter: blur(.3rem);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 .controls-container {
@@ -441,6 +457,10 @@ button {
     font-size: 0.75rem;
     color: #b3b3b3;
     min-width: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
    /* progress bar styling*/
   .progress-bar {
@@ -567,68 +587,79 @@ iframe#sc-player {
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     color: white;
-  }
+}
   
-  .success-alert {
+.success-alert {
     background-color: rgba(16, 185, 129, 0.9); /* Green with opacity */
-  }
+}
   
-  .error-alert {
+.error-alert {
     background-color: rgba(239, 68, 68, 0.9); /* Red with opacity */
-  }
+}
   
-  .alert-icon {
+.alert-icon {
     margin-right: 12px;
     font-size: 24px;
     min-width: 24px;
-  }
+}
   
-  .alert-content {
+.alert-content {
     flex-grow: 1;
-  }
+    max-width: 280px;
+}
   
-  .alert-title {
+.alert-title {
     font-weight: bold;
     margin-bottom: 4px;
     font-size: 16px;
-  }
+}
   
-  .alert-message {
+.alert-message {
     font-size: 14px;
     opacity: 0.9;
-  }
+    margin-bottom: 8px;
+}
   
-  .song-info {
+.song-info {
     display: flex;
     margin-top: 12px;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 6px;
-  }
-  
-  .album-art {
-    width: 48px;
-    height: 48px;
-    border-radius: 4px;
-    background-color: #333;
-    margin-right: 12px;
+    gap: 12px;
+    max-width: 100%;
+}
+
+/* Specific style for album art in alerts */
+.song-info .album-art {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 6px;
     background-size: cover;
     background-position: center;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+  
+.song-details {
+    flex: 1;
   }
   
-  .song-details h4 {
+.song-details h4 {
     margin: 0 0 4px 0;
     font-size: 14px;
-  }
+}
   
-  .song-details p {
+.song-details p {
     margin: 0;
     font-size: 12px;
     opacity: 0.8;
-  }
+}
   
-  .share-button {
+.share-button {
     display: flex;
     align-items: center;
     background-color: #1DB954; /* Spotify/SoundCloud green */
@@ -639,13 +670,13 @@ iframe#sc-player {
     font-size: 12px;
     margin-top: 8px;
     cursor: pointer;
-  }
+}
   
-  .share-icon {
+.share-icon {
     margin-right: 6px;
-  }
+}
   
-  .close-button {
+.close-button {
     background: none;
     border: none;
     color: white;
@@ -654,13 +685,13 @@ iframe#sc-player {
     opacity: 0.7;
     padding: 0;
     margin-left: 10px;
-  }
+}
   
-  .close-button:hover {
+.close-button:hover {
     opacity: 1;
-  }
+}
   
-  @keyframes slideIn {
+@keyframes slideIn {
     from {
       opacity: 0;
       transform: translateY(20px);
@@ -669,9 +700,9 @@ iframe#sc-player {
       opacity: 1;
       transform: translateY(0);
     }
-  }
+}
   
-  @keyframes fadeOut {
+@keyframes fadeOut {
     from {
       opacity: 1;
       transform: translateY(0);
@@ -680,16 +711,16 @@ iframe#sc-player {
       opacity: 0;
       transform: translateY(20px);
     }
-  }
+}
   
-  .alert-hide {
+.alert-hide {
     animation: fadeOut 0.3s ease-in forwards;
-  }
+}
 
-  .wrong-answer {
+.wrong-answer {
     animation: flashRed 0.8s;
-  }
+}
   
-  @keyframes flashRed {
+@keyframes flashRed {
     50% { background-color: rgba(255, 0, 0, 0.2); }
-  }
+}
