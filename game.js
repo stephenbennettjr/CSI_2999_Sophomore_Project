@@ -13,22 +13,22 @@ const rewindButton = document.querySelector('.rewind-button');
 // songs to test
 const allSongs = [
     { 
-      title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2731df4b775e18917ec609f4139"
+      title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-UPEAvUqrkz6a-0-t500x500.jpg"
     },
     { 
       title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
     },
     { 
-      title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273bc414c99ab0422157f040fc5" 
+      title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YFRPbwj60arT-0-t500x500.jpg" 
     },
     { 
       title: "Blinding Lights", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
     },
     { 
-      title: "Bad Guy", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b27360cfce290d53817b4e8f029c" 
+      title: "Bad Guy", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-tmxRIlncrsjv-0-t500x500.jpg" 
     },
     { 
-      title: "Humble", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b27312a76d1b13ef05c4809b4157" 
+      title: "Humble", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-yqTGeeaL2BRc-0-t500x500.jpg" 
     },
     { 
       title: "Starboy", trackUri: "soundcloud.com/theweeknd/starboy?si=f4d076c03f0442aca0d8c3fdb4afebee&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" 
