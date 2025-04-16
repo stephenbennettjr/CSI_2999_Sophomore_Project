@@ -89,9 +89,19 @@
                     <span class="time-display end-time" id="end-time">0:01</span>
                   </div>
                   <div class="play-controls">
-                    <button class="play-pause-button play-button" style="display: none;">▶</button>
-                    <button class="play-pause-button pause-button" style="display: none;">⏸</button>
-                    <button class="play-pause-button neutral-button">⌛</button>
+                    <button class="control-button rewind-button" aria-label="Previous">
+                      <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z" fill="currentColor"></path>
+                      </svg>
+                    </button>
+                  <button class="play-pause-button play-button" style="display: none;">▶</button>
+                  <button class="play-pause-button pause-button" style="display: none;">⏸</button>
+                  <button class="play-pause-button neutral-button">⌛</button>
+                  <button class="control-button forward-button" aria-label="Next">
+                      <svg width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z" fill="currentColor"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -154,7 +164,7 @@
       <button class="close-button" id="close-game-over-alert">&times;</button>
     </div>
     
-    <script src="game.js"></script>
+    <script type="module" src="game.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         gameState.maxGuess = 5;

@@ -374,42 +374,7 @@ function newSong() {
    });
 }
 
-function showSuccessAlert(songTitle, trackUri) {
-    hideAllAlerts();
-    
-    const successAlert = document.getElementById('successAlert');
-    const albumArt = document.getElementById('alert-album-art');
-    const songTitleEl = document.getElementById('alert-song-title');
-    const artistEl = document.getElementById('alert-artist');
-    
-    const artist = extractArtistFromUri(trackUri);
-    
-    songTitleEl.textContent = songTitle;
-    
-    // Set the album art
-    const gameAlbumArt = document.getElementById('album-art');
-    if (gameAlbumArt) {
-      const style = window.getComputedStyle(gameAlbumArt);
-      albumArt.style.backgroundImage = style.backgroundImage;
-      albumArt.style.filter = 'blur(0)'; // Make sure it's not blurred in the alert
-    }
-    successAlert.style.display = 'flex';
-    const shareButton = document.getElementById('share-song');
-    shareButton.onclick = function() {
-      window.open('https://' + trackUri, '_blank');
-    };
-    
 
-    const closeButton = document.getElementById('close-success-alert');
-    closeButton.onclick = function() {
-      closeAlert(successAlert);
-    };
-    
-
-    setTimeout(function() {
-      closeAlert(successAlert);
-    }, 6000);
-  }
   
 function checkGuess(guess) {
   gameState.isTransitioning = true;
@@ -526,6 +491,7 @@ function gameOver() {
         const username = usernameInput.value.trim();
         if (username) {
             console.log(`Score submitted: ${username} - ${gameState.score}`);
+            addScore(username, gameState.score);
             rankedAlertOverlay.style.display = 'none';
             initializeGame();
         } else {
@@ -536,6 +502,7 @@ function gameOver() {
     // Close on overlay click
     rankedAlertOverlay.onclick = function(e) {
         if (e.target === rankedAlertOverlay) {
+            
             rankedAlertOverlay.style.display = 'none';
             initializeGame();
         }
@@ -655,66 +622,51 @@ inputElement.addEventListener('blur', function() {
 
 //FIREBASE
 
+import { db } from './firebase-config.js';
+import { collection, addDoc, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
-//INIT
-const firebaseConfig = {
-  apiKey: "AIzaSyDlLEYaaYiCJs1d57ToJb0dQ_fLTc2jTjg",
-  authDomain: "music-guessing-game-a7236.firebaseapp.com",
-  projectId: "music-guessing-game-a7236",
-  storageBucket: "music-guessing-game-a7236.firebasestorage.app",
-  messagingSenderId: "991893518943",
-  appId: "1:991893518943:web:3a2ca6bf6bfe95028cb9ea"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-
+// Add score
 async function addScore(playerName, score) {
+  console.log("Adding score...");
   try {
-      await db.collection("leaderboard").add({
-          name: playerName,
-          score: score,
-          date: new Date() // Optional: store the date
-      });
-      console.log("Score added successfully!");
+    await addDoc(collection(db, "leaderboard"), {
+      name: playerName,
+      score: score,
+      date: new Date()
+    });
+    console.log("Score added successfully!");
   } catch (error) {
-      console.error("Error adding score:", error);
+    console.error("Error adding score:", error);
   }
 }
 
+// Get leaderboard
 async function getLeaderboard() {
   try {
-      const leaderboardRef = db.collection("leaderboard")
-          .orderBy("score", "desc") // Sort by score (highest first)
-          .limit(10); // Show the top 10 scores
+    const leaderboardRef = query(
+      collection(db, "leaderboard"),
+      orderBy("score", "desc"),
+      limit(10)
+    );
 
-      const snapshot = await leaderboardRef.get();
-      const leaderboard = snapshot.docs.map(doc => doc.data());
+    const snapshot = await getDocs(leaderboardRef);
+    const leaderboard = snapshot.docs.map(doc => doc.data());
 
-      // Update the UI with leaderboard data
-      const leaderboardContainer = document.getElementById("leaderboard-entries");
-      leaderboardContainer.innerHTML = ""; // Clear existing entries
+    const leaderboardContainer = document.getElementById("leaderboard-entries");
+    leaderboardContainer.innerHTML = "";
 
-      leaderboard.forEach((entry, index) => {
-          const row = document.createElement("div");
-          row.className = "lb-player-row";
-          row.innerHTML = `
-              <div class="lb-rank">${index + 1}</div>
-              <div class="lb-player-name">${entry.name}</div>
-              <div class="lb-player-score">${entry.score}</div>
-              <div class="lb-player-date">${entry.date.toDate().toLocaleDateString()}</div>
-          `;
-          leaderboardContainer.appendChild(row);
-      });
+    leaderboard.forEach((entry, index) => {
+      const row = document.createElement("div");
+      row.className = "lb-player-row";
+      row.innerHTML = `
+        <div class="lb-rank">${index + 1}</div>
+        <div class="lb-player-name">${entry.name}</div>
+        <div class="lb-player-score">${entry.score}</div>
+        <div class="lb-player-date">${new Date(entry.date.seconds * 1000).toLocaleDateString()}</div>
+      `;
+      leaderboardContainer.appendChild(row);
+    });
   } catch (error) {
-      console.error("Error retrieving leaderboard:", error);
+    console.error("Error retrieving leaderboard:", error);
   }
 }
-
-addScore("Player Name", gameState.score);
-
-document.getElementById("leaderboard").addEventListener("click", () => {
-  getLeaderboard(); // Fetch and display the leaderboard
-  document.getElementById("lb-modal-container").style.display = "flex";
-});
