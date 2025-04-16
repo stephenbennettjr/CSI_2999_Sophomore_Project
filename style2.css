@@ -85,6 +85,12 @@ body {
   letter-spacing: -0.01em;
 }
 
+.header-title-link {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+
 .header-right {
   justify-self: end;
 }
