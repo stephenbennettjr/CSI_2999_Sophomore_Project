@@ -157,7 +157,7 @@
     <script src="game.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        gameState.maxGuess = Infinity; //infinite attempts
+        gameState.maxGuess = 5;
         // For Normal mode keep the game.js default segment lengths (e.g. [1000,2000,7000,11000,15000]).
         window.getSegmentBoundaries = function() {
           let idx = gameState.attempts - 1;
