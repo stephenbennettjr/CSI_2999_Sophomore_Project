@@ -12,31 +12,86 @@ const rewindButton = document.querySelector('.rewind-button');
 
 // songs to test
 const allSongs = [
-    { 
-      title: "Not Like Us", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-UPEAvUqrkz6a-0-t500x500.jpg"
-    },
-    { 
-      title: "Beat It", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
-    },
-    { 
-      title: "Hotel California", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YFRPbwj60arT-0-t500x500.jpg" 
-    },
-    { 
-      title: "Blinding Lights", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
-    },
-    { 
-      title: "Bad Guy", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-tmxRIlncrsjv-0-t500x500.jpg" 
-    },
-    { 
-      title: "Humble", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-yqTGeeaL2BRc-0-t500x500.jpg" 
-    },
-    { 
-      title: "Starboy", trackUri: "soundcloud.com/theweeknd/starboy?si=f4d076c03f0442aca0d8c3fdb4afebee&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452" 
-    },
-    { 
-      title: "Levitating", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
-    },
-  ];
+  { 
+    title: "Not Like Us - Kendrick Lamar", trackUri: "soundcloud.com/kendrick-lamar-music/not-like-us?si=be16dfa95a1a4f4f9c886ec8b586d639&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-UPEAvUqrkz6a-0-t500x500.jpg"
+  },
+  { 
+    title: "Beat It - Michael Jackson", trackUri: "soundcloud.com/mjimmortal/beat-it-single-version?si=2ca0baf6a17f45718d7f0613462462ba&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273de437d960dda1ac0a3586d97" 
+  },
+  { 
+    title: "Hotel California - Eagles", trackUri: "soundcloud.com/eaglesofficial/eagles-hotel-california?si=53592bade0a0470ebfe256b0aa777983&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YFRPbwj60arT-0-t500x500.jpg" 
+  },
+  { 
+    title: "Blinding Lights - The Weeknd", trackUri: "soundcloud.com/theweeknd/blinding-lights?si=a15d3b0f786d4b3aac4b8e1f20d69e98&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36" 
+  },
+  { 
+    title: "Bad Guy - Billie Eilish", trackUri: "soundcloud.com/billieeilish/bad-guy?si=78fcf1cf37a04cb7934fb2fa65f1ebda&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-tmxRIlncrsjv-0-t500x500.jpg" 
+  },
+  { 
+    title: "Humble - Kendrick Lamar", trackUri: "soundcloud.com/kendrick-lamar-music/humble?si=9aecc4a5c98344d9b29a87e33a3a2d69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-yqTGeeaL2BRc-0-t500x500.jpg" 
+  },
+  { 
+    title: "Levitating - Dua Lipa", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
+  },
+];
+
+const guessableSongTitles = [
+  "Real Love Baby - Father John Misty",
+  "Ring of Fire - Johnny Cash",
+  "Hotel California - Eagles",
+  "Beat It - Michael Jackson",
+  "Blinding Lights - The Weeknd",
+  "Bad Guy - Billie Eilish",
+  "Humble - Kendrick Lamar",
+  "Starboy - The Weeknd",
+  "Levitating - Dua Lipa",
+  "Not Like Us - Kendrick Lamar",
+  "Purple Haze - Jimi Hendrix",
+  "Bohemian Rhapsody - Queen",
+  "Imagine - John Lennon",
+  "Hey Jude - The Beatles",
+  "Wonderwall - Oasis",
+  "Smells Like Teen Spirit - Nirvana",
+  "Rolling in the Deep - Adele",
+  "Dancing Queen - ABBA",
+  "Sweet Child O' Mine - Guns N' Roses",
+  "Lose Yourself - Eminem",
+  "Uptown Funk - Mark Ronson ft. Bruno Mars",
+  "Like a Rolling Stone - Bob Dylan",
+  "Shape of You - Ed Sheeran",
+  "Thriller - Michael Jackson",
+  "Every Breath You Take - The Police",
+  "I Will Always Love You - Whitney Houston",
+  "Shake It Off - Taylor Swift",
+  "Superstition - Stevie Wonder",
+  "Bohemian Like You - The Dandy Warhols",
+  "Happy - Pharrell Williams",
+  "Someone Like You - Adele",
+  "Born to Run - Bruce Springsteen",
+  "Take On Me - A-ha",
+  "Viva La Vida - Coldplay",
+  "Let It Be - The Beatles",
+  "Africa - Toto",
+  "No Woman, No Cry - Bob Marley & The Wailers",
+  "Call Me Maybe - Carly Rae Jepsen",
+  "Stayin' Alive - Bee Gees",
+  "Poker Face - Lady Gaga",
+  "Wake Me Up - Avicii",
+  "Shallow - Lady Gaga & Bradley Cooper",
+  "We Will Rock You - Queen",
+  "Gangnam Style - PSY",
+  "Shape of You - Ed Sheeran",
+  "Despacito - Luis Fonsi & Daddy Yankee",
+  "Clocks - Coldplay",
+  "Halo - Beyoncé",
+  "Sorry - Justin Bieber",
+  "Old Town Road - Lil Nas X",
+  "Blurred Lines - Robin Thicke ft. Pharrell",
+  "All of Me - John Legend",
+  "Chandelier - Sia"
+];
+
+const songTitles = Array.from(new Set([...allSongs.map(song => song.title), ...guessableSongTitles]));
 
 
 let availableSongs = [];
@@ -56,6 +111,7 @@ let gameState = {
     isPlaying: false
 };
 
+
 //Alert Functions
 function showSuccessAlert(songTitle, trackUri) {
   hideAllAlerts();
@@ -68,7 +124,6 @@ function showSuccessAlert(songTitle, trackUri) {
   const artist = extractArtistFromUri(trackUri);
 
   songTitleEl.textContent = songTitle;
-  artistEl.textContent = artist;
   
   const gameAlbumArt = document.getElementById('album-art');
   if (gameAlbumArt) {
@@ -173,50 +228,49 @@ function hideAllAlerts() {
 }
 
 function getSegmentBoundaries() {
-    const segmentStart = gameState.attempts > 1 ? gameState.lengthValues[gameState.attempts - 2] : 0;
+    const segmentStart = 0;
     const segmentEnd = gameState.lengthValues[gameState.attempts - 1];
     return { start: segmentStart, end: segmentEnd };
 }
 
 function play() {
-    const { start } = getSegmentBoundaries();
-    widget.getPosition(currentPos => {
-        if (currentPos < start) {
-            widget.seekTo(start);
-        }
-        widget.play();
-        gameState.isPlaying = true;
-        playButton.style.display = 'none';
-        pauseButton.style.display = 'block';
-        neutralButton.style.display = 'none';
-    });
+  widget.bind(SC.Widget.Events.READY, () => {
+    playButton.style.display = 'none';
+    pauseButton.style.display = 'block';
+    neutralButton.style.display = 'none';
+    widget.play();
+});
 }
 
 function pause() {
-    widget.pause();
-    gameState.isPlaying = false;
-    pauseButton.style.display = 'none';
-    playButton.style.display = 'block';
-    neutralButton.style.display = 'none';
+  pauseButton.style.display = 'none';
+   playButton.style.display = 'block';
+   neutralButton.style.display = 'none';
+   widget.pause();
 }
 
 function newRound() {
-    widget.pause();
-    gameState.isPlaying = false;
-    widget.seekTo(0);
+  widget.pause();
+ 
+   setTimeout(() => {
+       widget.getPosition((currentPos) => {
+           widget.seekTo(0);
+       });
+   }, 150);
 }
 
 function resetPlayStatus() {
-    const { start } = getSegmentBoundaries();
-    widget.pause();
-    gameState.isPlaying = false;
-    
-    setTimeout(() => {
-        widget.seekTo(start);
-        pauseButton.style.display = 'none';
-        playButton.style.display = 'block';
-        neutralButton.style.display = 'none';
-    }, 50);
+  widget.pause();
+ 
+   setTimeout(() => {
+       widget.getPosition((currentPos) => {
+           widget.seekTo(0);
+       });
+   }, 150);
+ 
+   pauseButton.style.display = 'none';
+   playButton.style.display = 'block';
+   neutralButton.style.display = 'none';
 }
 
 function resetAvailableSongs() {
@@ -282,42 +336,40 @@ function updateSegmentLights(currentAttempt) {
 
 // Sets up a new song round.
 function newSong() {
-    newRound();
-    
-    progBarColor.style.width = `0%`;
-    gameState.currentGuess = 1;
-    gameState.attempts = 1;
-    gameState.currentBlur = gameState.blurValues[0];
-    gameState.isPlaying = false;
-    gameState.lastErrorShown = false;  // Reset error tracking
-    
-    // Choose a new song (without repeats) and store it.
-    const nextSong = chooseSecretSong();
-    gameState.secretSong = nextSong;
-    
-    // Update album art
-    const albumArtElement = document.getElementById('album-art');
-    albumArtElement.style.backgroundImage = '';
-    
-    void albumArtElement.offsetWidth;
-    
-    albumArtElement.style.backgroundImage = `url(${gameState.secretSong.art})`;
-    albumArtElement.style.backgroundSize = 'cover';
-    albumArtElement.style.backgroundPosition = 'center';
-    albumArtElement.style.filter = `blur(${gameState.currentBlur}rem)`;
-    
-    console.log("Loading new song:", gameState.secretSong.title);
-    
-    // Update UI immediately with the new song info.
-    widget.load(`https://${gameState.secretSong.trackUri}`, {
-        callback: function() {
-            console.log("Song loaded successfully");
-            updateUI();
-            playButton.style.display = 'block'; 
-            neutralButton.style.display = 'none';
-            pauseButton.style.display = 'none';
-        }
-    });
+  newRound();
+   
+   progBarColor.style.width = `0%`;
+   gameState.currentGuess = 1;
+   gameState.attempts = 1;
+   gameState.currentBlur = gameState.blurValues[0];
+   
+   // Choose a new song (without repeats) and store it.
+   const nextSong = chooseSecretSong();
+   gameState.secretSong = nextSong;
+   
+       // Update album art
+       const albumArtElement = document.getElementById('album-art');
+       albumArtElement.style.backgroundImage = '';
+       
+       void albumArtElement.offsetWidth;
+       
+       albumArtElement.style.backgroundImage = `url(${gameState.secretSong.art})`;
+       albumArtElement.style.backgroundSize = 'cover';
+       albumArtElement.style.backgroundPosition = 'center';
+       albumArtElement.style.filter = `blur(${gameState.currentBlur}rem)`;
+       
+       console.log("Loading new song:", gameState.secretSong.title);
+       
+ 
+   // Update UI immediately with the new song info.
+   updateUI();
+   widget.load(`${gameState.secretSong.trackUri}`);
+   
+   widget.bind(SC.Widget.Events.READY, () => {
+       playButton.style.display = 'block'; 
+       neutralButton.style.display = 'none';
+       pauseButton.style.display = 'none';
+   });
 }
 
 function showSuccessAlert(songTitle, trackUri) {
@@ -331,7 +383,6 @@ function showSuccessAlert(songTitle, trackUri) {
     const artist = extractArtistFromUri(trackUri);
     
     songTitleEl.textContent = songTitle;
-    artistEl.textContent = artist;
     
     // Set the album art
     const gameAlbumArt = document.getElementById('album-art');
@@ -359,94 +410,96 @@ function showSuccessAlert(songTitle, trackUri) {
   }
   
 function checkGuess(guess) {
-    gameState.isTransitioning = true;
-
-    if (guess.trim().toLowerCase() === gameState.secretSong.title.trim().toLowerCase()) {
-        playButton.style.display = 'none';
-        pauseButton.style.display = 'none';
-        neutralButton.style.display = 'block';
-        widget.pause();
-        gameState.isPlaying = false;
-        gameState.lastErrorShown = false;
-
-        setTimeout(() => {
-            // Show success alert
-            showSuccessAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
-            const Addpoints = Math.max(500 - ((gameState.attempts - 1) * 100), 100);
-            gameState.score += Addpoints;
-            newSong();
-            gameState.isTransitioning = false;
-        }, 50);
-        return;
-    }
-
-    if (gameState.attempts < gameState.maxGuess) {
-        widget.getPosition(currentPos => {
-const attemptsLeft = gameState.maxGuess - gameState.attempts;
-              if (!gameState.lastErrorShown || gameState.attempts >= gameState.maxGuess - 1) {
-            const guessInput = document.getElementById('guess');
-            guessInput.classList.add('wrong-answer');
-            setTimeout(() => {
-                guessInput.classList.remove('wrong-answer');
-            }, 800);
-} 
-
-            // Update game state to next attempt
-            gameState.attempts++;
-            gameState.currentBlur = gameState.blurValues[gameState.attempts - 1];
-
-            // Update UI elements
-            document.getElementById('album-art').style.filter = `blur(${gameState.currentBlur}rem)`;
-            document.getElementById('attempts').textContent = gameState.attempts;
-            updateSegmentLights(gameState.attempts);
-
-            // Get new segment boundaries
-            const { start, end } = getSegmentBoundaries();
-            const segmentLength = end - start;
-
-            // Update time displays
-            endTime.textContent = "0:" + (Math.floor(segmentLength/1000)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-            startTime.textContent = "0:00";
-
-            // Reset progress bar
-            progBarColor.style.width = '0%';
-
-            // Auto-play the new segment
-            widget.seekTo(start);
-
-// Play the new segment automatically
-            setTimeout(() => {
-                widget.play();
-                gameState.isPlaying = true;
-                playButton.style.display = 'none';
-                pauseButton.style.display = 'block';
-                neutralButton.style.display = 'none';
-                gameState.isTransitioning = false;
-            }, 100);
-        });
-    } else {
-updateSegmentLights(gameState.maxGuess);
-        widget.pause();
-        gameState.isPlaying = false;
-
-          // Reset error tracking
-        gameState.lastErrorShown = false;
-
-        setTimeout(() => {
-            // Show game over alert
-            showGameOverAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
-            gameOver();
-            gameState.isTransitioning = false;
-        }, 100);
-    }
+  gameState.isTransitioning = true;
+  
+  if (guess.trim().toLowerCase() === gameState.secretSong.title.trim().toLowerCase()) {
+      playButton.style.display = 'none';
+      pauseButton.style.display = 'none';
+      neutralButton.style.display = 'block';
+      widget.pause();
+      gameState.isPlaying = false;
+      gameState.lastErrorShown = false;
+      
+      setTimeout(() => {
+          // Show success alert
+          showSuccessAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
+          const Addpoints = Math.max(500 - ((gameState.attempts - 1) * 100), 100);
+          gameState.score += Addpoints;
+          newSong();
+          gameState.isTransitioning = false;
+      }, 50);
+      return;
+  }
+  
+  if (gameState.attempts < gameState.maxGuess) {
+      widget.getPosition(currentPos => {
+          const attemptsLeft = gameState.maxGuess - gameState.attempts;
+          if (!gameState.lastErrorShown || gameState.attempts >= gameState.maxGuess - 1) {
+                    const guessInput = document.getElementById('guess');
+                     guessInput.classList.add('wrong-answer');
+                        setTimeout(() => {
+                                    guessInput.classList.remove('wrong-answer');
+                                }, 800);
+          } 
+          
+          // Update game state to next attempt
+          gameState.attempts++;
+          gameState.currentBlur = gameState.blurValues[gameState.attempts - 1];
+          
+          // Update UI elements
+          document.getElementById('album-art').style.filter = `blur(${gameState.currentBlur}rem)`;
+          document.getElementById('attempts').textContent = gameState.attempts;
+          updateSegmentLights(gameState.attempts);
+          
+          // Get new segment boundaries
+          const { start, end } = getSegmentBoundaries();
+          const segmentLength = end - start;
+          
+          // Update time displays
+          endTime.textContent = "0:" + (Math.floor(segmentLength/1000)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+          startTime.textContent = "0:00";
+          
+          // Reset progress bar
+          progBarColor.style.width = '0%';
+          
+          // Auto-play the new segment
+          widget.seekTo(0);
+          
+          // Play the new segment automatically
+          setTimeout(() => {
+              widget.play();
+              gameState.isPlaying = true;
+              playButton.style.display = 'none';
+              pauseButton.style.display = 'block';
+              neutralButton.style.display = 'none';
+              gameState.isTransitioning = false;
+          }, 100);
+      });
+  } else {
+      updateSegmentLights(gameState.maxGuess);
+      widget.pause();
+      gameState.isPlaying = false;
+      
+      // Reset error tracking
+      gameState.lastErrorShown = false;
+      
+      setTimeout(() => {
+          // Show game over alert
+          showGameOverAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
+          gameOver();
+          gameState.isTransitioning = false;
+      }, 100);
+  }
 }
 
 // Resets the overall game state.
 function initializeGame() {
-    gameState.score = 0;
-    gameState.isPlaying = false;
-    resetAvailableSongs(); // Make sure this happens before newSong
-    newSong();
+  gameState.score = 0;
+   progBarColor.style.width = `0%`;
+   startTime.textContent = "0:00"
+   resetPlayStatus();
+   resetAvailableSongs();
+   newSong();
 }
 
 function gameOver() {
@@ -502,44 +555,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const intervalCheck = setInterval(checkTimer, 10);
 
     function checkTimer() {
-        if (gameState.isTransitioning) return;
-
-        widget.getPosition(function(currentPos) {
-            widget.isPaused(function(pauseState) {
-                const { start, end } = getSegmentBoundaries();
-                
-                // Update progress only if we're within the segment
-                if (currentPos >= start && currentPos <= end) {
-                    const relativePos = currentPos - start;
-                    const segmentLength = end - start;
-                    
-                    // Format time display (MM:SS)
-                    const seconds = Math.floor(relativePos/1000);
-                    startTime.textContent = "0:" + seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-                    
-                    // Update progress bar
-                    gameState.currentPercent = (relativePos/segmentLength*100);
-                    progBarColor.style.width = `${Math.min(gameState.currentPercent, 100)}%`;
-                }
-                
-                // Handle segment end
-                if (currentPos >= end && !pauseState && !gameState.isTransitioning) {
-                    gameState.isTransitioning = true;
-                    
-                    // If at the end of the segment, pause and reset to start of segment
-                    setTimeout(() => {
-                        widget.seekTo(start);
-                        widget.pause();
-                        gameState.isPlaying = false;
-                        pauseButton.style.display = 'none';
-                        playButton.style.display = 'block';
-                        neutralButton.style.display = 'none';
-                        gameState.isTransitioning = false;
-                    }, 50);
-                }
-            });
-        });
-    }
+      widget.getPosition(function(currentPos) {
+          widget.isPaused(function(pauseState) {
+              
+              if (currentPos <= gameState.lengthValues[gameState.attempts-1]) {
+                  startTime.textContent = "0:" + (Math.floor(currentPos/1000)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+                  gameState.currentPercent = (currentPos/gameState.lengthValues[gameState.attempts-1]*100);
+                  progBarColor.style.width = `${gameState.currentPercent}%`;
+              }
+              if (currentPos >= (gameState.lengthValues[gameState.attempts-1]) && !pauseState ) {
+                  resetPlayStatus();
+              }
+              endTime.textContent = "0:" + (gameState.lengthValues[gameState.attempts-1]/1000).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+      
+          });
+          
+          
+      });
+  }
 
     document.getElementById('guess-button').addEventListener('click', () => {
         const guess = document.getElementById('guess').value;
@@ -569,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     rewindButton.addEventListener('click', function() {
         const { start } = getSegmentBoundaries();
-        widget.seekTo(start);
+        widget.seekTo(0);
     });
     
     document.querySelector('.ranked-alert-overlay').addEventListener('click', function(e) {
@@ -578,4 +611,112 @@ document.addEventListener('DOMContentLoaded', function() {
             initializeGame();
         }
     });
+});
+
+
+//Autocomplete code
+
+// take guess element, autocomplete list element, and all song titles as consts
+const inputElement = document.getElementById('guess');
+const autocompleteList = document.getElementById('autocomplete-list');
+
+
+//listen for input
+inputElement.addEventListener('input', function() {
+  //make the input lowercase  
+  const inputValue = this.value.toLowerCase();
+    //clear previous suggestions  
+  autocompleteList.innerHTML = ''; 
+  //if empty, show nothing
+    if (!inputValue) {
+        return; 
+    }
+
+    // songs filtered if the title has the input text, slice to show only 4 songs
+    const filteredSuggestions = songTitles.filter(title => 
+        title.toLowerCase().includes(inputValue)
+    ).slice(0,4);
+
+    
+    //iterate over each and create a pop up for each
+    filteredSuggestions.forEach(suggestion => {
+        const listItem = document.createElement('li');
+        listItem.textContent = suggestion;
+        listItem.addEventListener('click', function() {
+            inputElement.value = suggestion; //if clicked, set guess to suggestion
+            autocompleteList.innerHTML = ''; //clear suggestion list at this point
+        });
+        autocompleteList.appendChild(listItem);
+    });
+});
+
+//close when lost focus
+inputElement.addEventListener('blur', function() {
+    setTimeout(() => autocompleteList.innerHTML = '', 150); //delay in case of click
+});
+
+//FIREBASE
+
+
+//INIT
+const firebaseConfig = {
+  apiKey: "AIzaSyDlLEYaaYiCJs1d57ToJb0dQ_fLTc2jTjg",
+  authDomain: "music-guessing-game-a7236.firebaseapp.com",
+  projectId: "music-guessing-game-a7236",
+  storageBucket: "music-guessing-game-a7236.firebasestorage.app",
+  messagingSenderId: "991893518943",
+  appId: "1:991893518943:web:3a2ca6bf6bfe95028cb9ea"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+async function addScore(playerName, score) {
+  try {
+      await db.collection("leaderboard").add({
+          name: playerName,
+          score: score,
+          date: new Date() // Optional: store the date
+      });
+      console.log("Score added successfully!");
+  } catch (error) {
+      console.error("Error adding score:", error);
+  }
+}
+
+async function getLeaderboard() {
+  try {
+      const leaderboardRef = db.collection("leaderboard")
+          .orderBy("score", "desc") // Sort by score (highest first)
+          .limit(10); // Show the top 10 scores
+
+      const snapshot = await leaderboardRef.get();
+      const leaderboard = snapshot.docs.map(doc => doc.data());
+
+      // Update the UI with leaderboard data
+      const leaderboardContainer = document.getElementById("leaderboard-entries");
+      leaderboardContainer.innerHTML = ""; // Clear existing entries
+
+      leaderboard.forEach((entry, index) => {
+          const row = document.createElement("div");
+          row.className = "lb-player-row";
+          row.innerHTML = `
+              <div class="lb-rank">${index + 1}</div>
+              <div class="lb-player-name">${entry.name}</div>
+              <div class="lb-player-score">${entry.score}</div>
+              <div class="lb-player-date">${entry.date.toDate().toLocaleDateString()}</div>
+          `;
+          leaderboardContainer.appendChild(row);
+      });
+  } catch (error) {
+      console.error("Error retrieving leaderboard:", error);
+  }
+}
+
+addScore("Player Name", gameState.score);
+
+document.getElementById("leaderboard").addEventListener("click", () => {
+  getLeaderboard(); // Fetch and display the leaderboard
+  document.getElementById("lb-modal-container").style.display = "flex";
 });
