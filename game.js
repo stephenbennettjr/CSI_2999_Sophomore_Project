@@ -34,6 +34,21 @@ const allSongs = [
   { 
     title: "Levitating - Dua Lipa", trackUri: "soundcloud.com/dualipa/levitating?si=0b5ce5dfc8c345a4b8f78eb2afb30b72&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i.scdn.co/image/ab67616d0000b273d4daf28d55fe4197ede848be" 
   },
+  { 
+    title: "Real Love Baby - Father John Misty", trackUri: "soundcloud.com/fatherjohnmisty/real-love-baby-1?si=43aed0fb22af40a39dfd0cade5ef658f&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-X9fG7QbnjSrM-0-t500x500.png" 
+  },
+  { 
+    title: "De Selby (Part 2) - Hozier", trackUri: "soundcloud.com/hozier/de-selby-part-2-1?si=663f4c71aa8447ba8b1deb175b78302d&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-m01Ogl1M4Hud-0-t500x500.png" 
+  },
+  { 
+    title: "Leave The Door Open - Silk Sonic", trackUri: "soundcloud.com/brunomars/bruno-mars-anderson-paak-silk?in=brunomars/sets/an-evening-with-silk-sonic-3&si=e254a47c708246aabbd0f0914f2445df&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-qeSJPwwmQnDy-0-t500x500.jpg" 
+  },
+  { 
+    title: "I Guess Time Just Makes Fools of Us All - Father John Misty", trackUri: "soundcloud.com/fatherjohnmisty/i-guess-time-just-makes-1?si=1a82e525419745e38dccf98b11a18809&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-h28iX0nzczMi-0-t500x500.png" 
+  },
+  { 
+    title: "This fffire (New Version) - Franz Ferdinand", trackUri: "soundcloud.com/franzferdinand/this-fffire-new-version?si=0784bf62a5f0486283fd08d8cf4a5c02&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing", art: "https://i1.sndcdn.com/artworks-YTkD20S8h9M3-0-t500x500.png" 
+  },
 ];
 
 const guessableSongTitles = [
@@ -451,6 +466,7 @@ function checkGuess(guess) {
 
 // Resets the overall game state.
 function initializeGame() {
+  getLeaderboard();
   gameState.score = 0;
    progBarColor.style.width = `0%`;
    startTime.textContent = "0:00"
