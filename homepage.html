@@ -63,7 +63,7 @@
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
-                  <span>Limited attempts</span>
+                  <span>Unlimited attempts</span>
                 </div>
               </div>
               <button type="button" class="mode-button" id="normal-button">Play Normal</button>
@@ -100,18 +100,17 @@
     
     <script>
       document.getElementById('easy-button').addEventListener('click', function() {
-        //  easy mode redirect
-        console.log('Easy mode selected');
-      });
-      
-      document.getElementById('normal-button').addEventListener('click', function() {
-        //  normal mode redirect
-        console.log('Normal mode selected');
-      });
-      
-      document.getElementById('ranked-button').addEventListener('click', function() {
-        window.location.href = `game.html`;
-      });
+  window.location.href = 'casual.html';
+});
+
+document.getElementById('normal-button').addEventListener('click', function() {
+  window.location.href = 'normal.html';
+});
+
+document.getElementById('ranked-button').addEventListener('click', function() {
+  window.location.href = 'game.html';
+});
+
     </script>
   </body>
 </html>

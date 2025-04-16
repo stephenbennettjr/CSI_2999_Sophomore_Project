@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Guessing Game - Normal Mode</title>
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+  <body>
+    <iframe
+      id="sc-player"
+      width="10%"
+      height="10"
+      scrolling="no"
+      frameborder="no"
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fatherjohnmisty/real-love-baby-1?si=5c58fd2c9ec64aeba56bddf5ebaa9e4e&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+    </iframe>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    
+    <div class="game-container">
+      <div class="game-view">
+        <div class="game-function">
+          <div class="left-div">
+            <div class="segment-selector">
+              <div class="track-element">
+                <div class="element-select active"></div>
+                <div class="element-label">Segment 1</div>
+              </div>
+              <div class="track-element">
+                <div class="element-select inactive"></div>
+                <div class="element-label">Segment 2</div>
+              </div>
+              <div class="track-element">
+                <div class="element-select inactive"></div>
+                <div class="element-label">Segment 3</div>
+              </div>
+              <div class="track-element">
+                <div class="element-select inactive"></div>
+                <div class="element-label">Segment 4</div>
+              </div>
+              <div class="track-element">
+                <div class="element-select inactive"></div>
+                <div class="element-label">Segment 5</div>
+              </div>
+            </div>
+            <div class="stats-container">
+              <ul class="stats-list">
+                <li class="stats-item">Attempts: <span id="attempts"></span></li>
+                <li class="stats-item">Score: <span id="score"></span></li>
+                <li class="stats-item">Songs: <span id="songs"></span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="right-div">
+            <div class="player-container">
+              <div class="art-container">
+                <div id="album-art" class="album-art" style="width: 100%; height: 100%; border-radius: 20px;"></div>
+              </div>
+              <div class="controls-container">
+                <div class="player-controls">
+                  <div class="scrubber-container">
+                    <span class="time-display start-time" id="start-time">0:00</span>
+                    <div class="progress-bar">
+                      <div class="progress-fill progress-bar-fill"></div>
+                    </div>
+                    <span class="time-display end-time" id="end-time">0:01</span>
+                  </div>
+                  <div class="play-controls">
+                    <button class="play-pause-button play-button" style="display: none;">▶</button>
+                    <button class="play-pause-button pause-button" style="display: none;">⏸</button>
+                    <button class="play-pause-button neutral-button">⌛</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="guess-container">
+      <div class="guess-view">
+        <input type="text" id="guess" class="guess-input" placeholder="Guess the song..." />
+        <ul id="autocomplete-list" class="autocomplete-list"></ul>
+      </div>
+      <button id="guess-button">Guess!</button>
+    </div>
+    
+    <div id="song-title" style="margin: 1rem; font-size: 1.2rem; color: #fff;"></div>
+    
+    <div id="successAlert" class="custom-alert success-alert" style="display: none;">
+      <div class="alert-icon">✓</div>
+      <div class="alert-content">
+        <div class="alert-title">Correct!</div>
+        <div class="alert-message">Great job! You guessed the song correctly.</div>
+        <div class="song-info">
+          <div class="album-art" id="alert-album-art"></div>
+          <div class="song-details">
+            <h4 id="alert-song-title"></h4>
+            <button class="share-button" id="share-song">
+              <span class="share-icon">↗</span> Share
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="close-button" id="close-success-alert">&times;</button>
+    </div>
+    
+    <div id="errorAlert" class="custom-alert error-alert" style="display: none;">
+      <div class="alert-icon">!</div>
+      <div class="alert-content">
+        <div class="alert-title">Incorrect</div>
+        <div class="alert-message" id="error-message"></div>
+      </div>
+      <button class="close-button" id="close-error-alert">&times;</button>
+    </div>
+    
+    <div id="gameOverAlert" class="custom-alert error-alert" style="display: none;">
+      <div class="alert-icon">!</div>
+      <div class="alert-content">
+        <div class="alert-title">Game Over</div>
+        <div class="alert-message" id="game-over-message"></div>
+        <div class="song-info">
+          <div class="album-art" id="game-over-album-art"></div>
+          <div class="song-details">
+            <h4 id="game-over-song-title"></h4>
+            <p id="game-over-artist">Artist</p>
+          </div>
+        </div>
+      </div>
+      <button class="close-button" id="close-game-over-alert">&times;</button>
+    </div>
+    
+    <script src="game.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        gameState.maxGuess = Infinity; //infinite attempts
+        // For Normal mode keep the game.js default segment lengths (e.g. [1000,2000,7000,11000,15000]).
+        window.getSegmentBoundaries = function() {
+          let idx = gameState.attempts - 1;
+          if (idx >= gameState.lengthValues.length) {
+            idx = gameState.lengthValues.length - 1;
+          }
+          const segmentStart = gameState.attempts > 1 ? gameState.lengthValues[idx - 1] : 0;
+          const segmentEnd = gameState.lengthValues[idx];
+          return { start: segmentStart, end: segmentEnd };
+        };
+        const leaderboardBtn = document.getElementById("leaderboard");
+        if (leaderboardBtn) {
+          leaderboardBtn.style.display = "none";
+        }
+      });
+      
+      // Start game
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeGame();
+      });
+    </script>
+  </body>
+</html>
