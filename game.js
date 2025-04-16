@@ -9,6 +9,7 @@ const startTime = document.querySelector('.start-time');
 const endTime = document.querySelector('.end-time');
 const progBarColor = document.querySelector('.progress-bar-fill');
 const rewindButton = document.querySelector('.rewind-button');
+const forwardButton = document.querySelector('.forward-button');
 
 // songs to test
 const allSongs = [
@@ -466,15 +467,7 @@ function checkGuess(guess) {
           // Auto-play the new segment
           widget.seekTo(0);
           
-          // Play the new segment automatically
-          setTimeout(() => {
-              widget.play();
-              gameState.isPlaying = true;
-              playButton.style.display = 'none';
-              pauseButton.style.display = 'block';
-              neutralButton.style.display = 'none';
-              gameState.isTransitioning = false;
-          }, 100);
+          
       });
   } else {
       updateSegmentLights(gameState.maxGuess);
@@ -605,6 +598,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const { start } = getSegmentBoundaries();
         widget.seekTo(0);
     });
+
+    forwardButton.addEventListener('click', function() {
+      checkGuess("");
+  });
     
     document.querySelector('.ranked-alert-overlay').addEventListener('click', function(e) {
         if (e.target === this) {
