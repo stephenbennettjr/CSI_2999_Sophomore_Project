@@ -360,7 +360,7 @@ function newSong() {
        albumArtElement.style.backgroundPosition = 'center';
        albumArtElement.style.filter = `blur(${gameState.currentBlur}rem)`;
        
-       console.log("Loading new song:", gameState.secretSong.title);
+
        
  
    // Update UI immediately with the new song info.
