@@ -435,19 +435,17 @@ function checkGuess(guess) {
           
       });
   } else {
-      updateSegmentLights(gameState.maxGuess);
-      widget.pause();
-      gameState.isPlaying = false;
-      
-      // Reset error tracking
-      gameState.lastErrorShown = false;
-      
-      setTimeout(() => {
-          // Show game over alert
-          showGameOverAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
-          gameOver();
-          gameState.isTransitioning = false;
-      }, 100);
+        updateSegmentLights(gameState.maxGuess);
+        widget.pause();
+        gameState.isPlaying = false;
+        gameState.lastErrorShown = false;
+        
+        setTimeout(() => {
+            showGameOverAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
+            //call new song on game over
+            newSong();
+            gameState.isTransitioning = false;
+        }, 100);
   }
 }
 
