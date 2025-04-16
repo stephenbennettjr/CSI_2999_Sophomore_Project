@@ -443,7 +443,7 @@ function checkGuess(guess) {
         setTimeout(() => {
             showGameOverAlert(gameState.secretSong.title, gameState.secretSong.trackUri);
             //call new song on game over
-            gameOver();
+            newSong();
             gameState.isTransitioning = false;
         }, 100);
   }
@@ -638,13 +638,8 @@ async function addScore(playerName, score) {
   }
 }
 
-document.getElementById('leaderboard').addEventListener('click', () => {
-  getLeaderboard();
-});
-
 // Get leaderboard
 async function getLeaderboard() {
-  console.log("lb opened");
   try {
     const leaderboardRef = query(
       collection(db, "leaderboard"),
