@@ -283,7 +283,8 @@ function chooseSecretSong() {
     if (availableSongs.length === 0) {
         resetAvailableSongs();
     }
-    
+
+
     const randomIndex = Math.floor(Math.random() * availableSongs.length);
     const selectedSong = availableSongs.splice(randomIndex, 1)[0];
     
