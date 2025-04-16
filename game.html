@@ -265,13 +265,60 @@
             </div>
         </div>
     </div>
-    
     <div class="guess-container">
         <div class="guess-view">
-            <input type="text" id="guess" class="guess-input" placeholder="Guess the song...">
-            <ul id="autocomplete-list" class="autocomplete-list"></ul> 
-          </div>
-          
+          <input type="text" id="guess" class="guess-input" placeholder="Guess the song..." list="song-suggestions">
+          <datalist id="song-suggestions">
+            <option value="Not Like Us">
+            <option value="Beat It">
+            <option value="Hotel California">
+            <option value="Bohemian Rhapsody">
+            <option value="Smells Like Teen Spirit">
+            <option value="Billie Jean">
+            <option value="Sweet Child O' Mine">
+            <option value="Stairway to Heaven">
+            <option value="Like a Rolling Stone">
+            <option value="Purple Haze">
+            <option value="Johnny B. Goode">
+            <option value="Hey Jude">
+            <option value="I Want to Hold Your Hand">
+            <option value="Good Vibrations">
+            <option value="Born to Run">
+            <option value="Satisfaction">
+            <option value="Yesterday">
+            <option value="Imagine">
+            <option value="What's Going On">
+            <option value="Respect">
+            <option value="Dancing Queen">
+            <option value="Superstition">
+            <option value="London Calling">
+            <option value="Thriller">
+            <option value="Livin' on a Prayer">
+            <option value="Sweet Dreams (Are Made of This)">
+            <option value="Every Breath You Take">
+            <option value="When Doves Cry">
+            <option value="With or Without You">
+            <option value="Smells Like Teen Spirit">
+            <option value="Wonderwall">
+            <option value="Creep">
+            <option value="Lose Yourself">
+            <option value="Hey Ya!">
+            <option value="Crazy in Love">
+            <option value="Umbrella">
+            <option value="Rolling in the Deep">
+            <option value="Uptown Funk">
+            <option value="Blinding Lights">
+            <option value="Shape of You">
+            <option value="Bad Guy">
+            <option value="Old Town Road">
+            <option value="Despacito">
+            <option value="God's Plan">
+            <option value="Sicko Mode">
+            <option value="Humble">
+            <option value="All I Want for Christmas Is You">
+            <option value="Real Love Baby">
+          </datalist>
+        </div>
         <button id="guess-button">Guess!</button>
       </div>
       
@@ -312,6 +359,7 @@
         <div class="album-art" id="alert-album-art"></div>
         <div class="song-details">
           <h4 id="alert-song-title"></h4>
+          <p id="alert-artist"></p>
           <button class="share-button" id="share-song">
             <span class="share-icon">↗</span> Share
           </button>
@@ -346,5 +394,22 @@
     </div>
     <button class="close-button" id="close-game-over-alert">&times;</button>
   </div>
+
+  <div class="ranked-alert-overlay" id="ranked-alert-overlay">
+    <div id="gameRankedOverAlert">
+      <button class="close-button" id="close-ranked-alert">&times;</button>
+      <div class="alert-title">Game Over</div>
+      <div class="alert-message">
+        <p>Your final score is:</p>
+        <p><strong><span id="final-score">0</span></strong></p>
+        <p>Would you like to submit your score to the leaderboard?</p>
+      </div>
+      <div class="leaderboard-submission">
+        <input type="text" id="username-input" class="username-input" placeholder="Enter your username">
+        <button id="submit-score-button" class="submit-button">Submit Score</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

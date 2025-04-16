@@ -12,6 +12,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .game-container {
@@ -328,7 +330,6 @@ button {
     background-color: rgba(40, 40, 40, 1);
     padding: 0.5rem 1.25rem;
     border-radius: 23px;
-    cursor: pointer;
     width: 390px; 
     height: 51px; 
     box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.25);
@@ -725,28 +726,102 @@ iframe#sc-player {
     50% { background-color: rgba(255, 0, 0, 0.2); }
 }
 
-.autocomplete-list {
-    position: absolute;
-    top: 60px; 
-    left: 0px;
-    width: 70%;
-    background-color: rgba(40, 40, 40, 1);
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    list-style: none;
-    padding: 0;
-    margin: 15px;
+.ranked-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.autocomplete-list li {
-    padding: 10px 15px;
-    cursor: pointer;
+#gameRankedOverAlert {
+    background: #1e1e1e;
+    width: 400px;
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 12px;
+    position: relative;
     color: white;
+    text-align: center;
 }
 
-.autocomplete-list li:hover {
-    background-color: rgba(60, 60, 60, 1);
+#gameRankedOverAlert .alert-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    margin: 0 0 1.5rem;
+    line-height: 1.2;
+}
+
+#gameRankedOverAlert .alert-message {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+#gameRankedOverAlert .alert-message p {
+    margin: 0.5rem 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+#gameRankedOverAlert .leaderboard-submission {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#gameRankedOverAlert .username-input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+#gameRankedOverAlert .submit-button {
+    width: 100%;
+    padding: 12px;
+    background: #1DB954;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+#gameRankedOverAlert .submit-button:hover {
+    background: #1ED760;
+}
+
+#gameRankedOverAlert .close-button {
+        position: absolute;
+        right: 10px;
+        top: -1px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 2;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+}
+
+#gameRankedOverAlert .close-button:hover {
+    opacity: 1;
 }
